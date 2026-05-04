@@ -29,12 +29,12 @@
   --ink-4: #8A968B;
   --ink-5: #B0BAB1;
 
-  /* Brand — deep pine */
-  --brand: #1B3B2A;
-  --brand-2: #2D5C42;
-  --brand-soft: #DAE3D5;
-  --brand-tint: #C2D2B9;
-  --brand-deep: #112418;
+  /* Brand — deep ink blue */
+  --brand: #1E3A5F;
+  --brand-2: #2D5278;
+  --brand-soft: #D8E1ED;
+  --brand-tint: #B5C7DD;
+  --brand-deep: #142745;
 
   /* Ember — oxblood/terracotta (alerts, patient mode accent) */
   --ember: #B23B1C;
@@ -52,11 +52,11 @@
   --plum: #7A2E3D;
   --plum-soft: #EFD8DC;
 
-  /* Semantic — desaturated to fit palette */
-  --green: #355E3B;
-  --green-bg: #DDE6D5;
-  --green-border: #B7CDA9;
-  --green-strong: #234127;
+  /* Semantic — desaturated blues replacing greens */
+  --green: #2A5180;
+  --green-bg: #DCE4F0;
+  --green-border: #B7C5DC;
+  --green-strong: #15315A;
 
   --amber: #8B6420;
   --amber-bg: #F0E5C9;
@@ -72,9 +72,9 @@
   --purple-bg: #EFD8DC;
   --purple-border: #D9B5BD;
 
-  --teal: #2D5C42;
-  --teal-bg: #DAE3D5;
-  --teal-border: #B7CDA9;
+  --teal: #2D5278;
+  --teal-bg: #DCE4F0;
+  --teal-border: #B7C5DC;
 
   /* Effects */
   --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
@@ -84,7 +84,7 @@
   --shadow: 0 2px 4px rgba(36, 28, 12, 0.06), 0 8px 18px -6px rgba(36, 28, 12, 0.10);
   --shadow-md: 0 4px 8px rgba(36, 28, 12, 0.08), 0 16px 28px -10px rgba(36, 28, 12, 0.14);
   --shadow-lg: 0 12px 24px rgba(36, 28, 12, 0.10), 0 32px 56px -16px rgba(36, 28, 12, 0.20);
-  --ring: 0 0 0 3px rgba(27, 59, 42, 0.18);
+  --ring: 0 0 0 3px rgba(30, 58, 95, 0.20);
 
   /* Radii — editorial: less rounded, hairline-friendly */
   --radius-xs: 4px;
@@ -315,7 +315,7 @@ input:focus-visible {
 .mode-btn.active {
   background: var(--brand);
   color: var(--paper);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.10) inset, 0 2px 6px rgba(27, 59, 42, 0.25);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.10) inset, 0 2px 6px rgba(30, 58, 95, 0.28);
 }
 
 .mode-caption {
@@ -574,7 +574,7 @@ input:focus-visible {
 .btn-ghost:hover { border-color: var(--rule-strong); background: var(--card-2); color: var(--ink); }
 
 .btn-green { background: var(--green-bg); color: var(--green-strong); border: 1px solid var(--green-border); }
-.btn-green:hover { background: #D2DEC9; }
+.btn-green:hover { background: #CFDBE9; }
 
 .btn-amber { background: var(--amber-bg); color: var(--amber-strong); border: 1px solid var(--amber-border); }
 .btn-amber:hover { background: #E9DCB7; }

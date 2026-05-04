@@ -1,7 +1,7 @@
 // ProviderConnect — Data Layer
 
 export const ROLES = {
-  gp: { label: "Dr. Sarah Liu", title: "General Practitioner", initials: "SL", icon: "\u{1FA7A}", color: "#1B3B2A", bg: "#E4ECDF" },
+  gp: { label: "Dr. Sarah Liu", title: "General Practitioner", initials: "SL", icon: "\u{1FA7A}", color: "#1E3A5F", bg: "#DCE4F0" },
   physio: { label: "Tom Dunn", title: "Physiotherapist", initials: "TD", icon: "\u{1F9B4}", color: "#A04222", bg: "#F2DDD0" },
   psych: { label: "Dr. Anya Mehta", title: "Psychologist", initials: "AM", icon: "\u{1F9E0}", color: "#7A2E3D", bg: "#EFD8DC" },
   dietitian: { label: "Rachel Kwon", title: "Dietitian", initials: "RK", icon: "\u{1F957}", color: "#8B6420", bg: "#EFE4C4" },
