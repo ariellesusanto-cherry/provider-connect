@@ -489,31 +489,36 @@ input:focus-visible {
 
 .card:hover { border-color: var(--rule-2); }
 
-/* Section title (small caps mono with rule) */
+/* Section title — editorial serif heading with trailing rule */
 .section-title {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--ink-3);
-  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  margin-bottom: 20px;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: baseline;
+  gap: 14px;
+  font-variation-settings: "opsz" 28, "SOFT" 30;
+  text-transform: none;
+  line-height: 1.2;
 }
 
 .section-title::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--rule-soft);
+  background: var(--rule);
+  align-self: center;
+  margin-top: 4px;
 }
 
 .section-title-icon {
-  font-size: 13px;
+  font-size: 18px;
   line-height: 1;
-  color: var(--ink-4);
+  color: var(--brand);
+  flex-shrink: 0;
 }
 
 /* ─── Badges ─────────────────────────────────────────────────────────────── */
