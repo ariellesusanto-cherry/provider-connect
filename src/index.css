@@ -4,23 +4,23 @@
    Fraunces serif display · Instrument Sans body · JetBrains Mono technicals.
    ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,30..100;1,9..144,300..900,30..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 /* ─── Tokens ─────────────────────────────────────────────────────────────── */
 :root {
-  /* Paper system — lighter cream */
-  --paper: #FAF6EC;
-  --paper-2: #F4EFE0;
-  --card: #FFFDF6;
-  --card-2: #FAF5E7;
-  --card-soft: #F7F1E0;
-  --hover: #F1EAD2;
+  /* Paper system — cool clinical eggshell */
+  --paper: #F3F1EA;
+  --paper-2: #EAE8DF;
+  --card: #FBFAF5;
+  --card-2: #F1EEE4;
+  --card-soft: #EDEAE0;
+  --hover: #E5E1D4;
 
   /* Rules / borders */
-  --rule: #E5DDC5;
-  --rule-2: #D4C9A8;
-  --rule-strong: #B8AB85;
-  --rule-soft: #EDE6D0;
+  --rule: #DAD5C2;
+  --rule-2: #C2BBA1;
+  --rule-strong: #968F77;
+  --rule-soft: #E4DFCF;
 
   /* Ink (text) */
   --ink: #131A14;
@@ -99,10 +99,11 @@
   --transition: 240ms var(--ease);
   --transition-fast: 160ms var(--ease);
 
-  /* Type */
-  --font-display: 'Fraunces', 'Times New Roman', Georgia, serif;
-  --font-sans: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  /* Type — IBM Plex (clinical authority, designed for medical/technical contexts) */
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+  --font-display: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
 
   /* Layout */
   --content-max: 1140px;
@@ -129,7 +130,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  font-feature-settings: "ss01", "ss02", "cv11";
+  font-feature-settings: "ss01", "ss02";
   text-rendering: optimizeLegibility;
 }
 
@@ -154,8 +155,8 @@ input:focus-visible {
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 
 /* Display / Editorial helpers */
-.display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
-.eyebrow { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-3); }
+.display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.012em; }
+.eyebrow { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-3); }
 
 /* ─── Header ─────────────────────────────────────────────────────────────── */
 .app-header {
@@ -205,13 +206,12 @@ input:focus-visible {
 .brand-words { min-width: 0; }
 
 .brand-name {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 22px;
+  font-size: 21px;
   line-height: 1.05;
   color: var(--ink);
-  letter-spacing: -0.018em;
-  font-variation-settings: "opsz" 36, "SOFT" 30;
+  letter-spacing: -0.014em;
 }
 
 .brand-eyebrow {
@@ -251,12 +251,11 @@ input:focus-visible {
 .patient-pill-divider { color: var(--ink-5); font-weight: 300; }
 
 .patient-pill-name {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 14.5px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13.5px;
   color: var(--ink);
-  letter-spacing: -0.01em;
-  font-variation-settings: "opsz" 24;
+  letter-spacing: -0.005em;
 }
 
 .patient-pill-meta {
@@ -316,11 +315,10 @@ input:focus-visible {
 }
 
 .mode-caption {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 14px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
   color: var(--ink-3);
-  font-variation-settings: "opsz" 14;
   letter-spacing: -0.005em;
 }
 
@@ -374,12 +372,11 @@ input:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
   flex-shrink: 0;
-  font-variation-settings: "opsz" 14;
 }
 
 .role-chip-text { display: flex; flex-direction: column; line-height: 1.1; }
@@ -465,11 +462,10 @@ input:focus-visible {
 .tab-btn.active .tab-num { color: var(--brand); }
 
 .tab-label {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 16px;
-  font-variation-settings: "opsz" 18;
-  letter-spacing: -0.012em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: -0.008em;
 }
 
 /* ─── Cards ──────────────────────────────────────────────────────────────── */
@@ -486,20 +482,19 @@ input:focus-visible {
 
 .card:hover { border-color: var(--rule-2); }
 
-/* Section title — editorial serif heading with trailing rule */
+/* Section title — clinical sans heading with trailing rule */
 .section-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.018em;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
   color: var(--ink);
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   display: flex;
-  align-items: baseline;
-  gap: 14px;
-  font-variation-settings: "opsz" 28, "SOFT" 30;
+  align-items: center;
+  gap: 12px;
   text-transform: none;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .section-title::after {
@@ -507,12 +502,10 @@ input:focus-visible {
   flex: 1;
   height: 1px;
   background: var(--rule);
-  align-self: center;
-  margin-top: 4px;
 }
 
 .section-title-icon {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   color: var(--brand);
   flex-shrink: 0;
@@ -656,12 +649,11 @@ input:focus-visible {
 .visit-provider-icon { font-size: 18px; flex-shrink: 0; }
 
 .visit-title {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
   color: var(--ink);
-  letter-spacing: -0.012em;
-  font-variation-settings: "opsz" 18;
+  letter-spacing: -0.006em;
 }
 
 .visit-meta {
@@ -752,13 +744,12 @@ input:focus-visible {
 }
 
 .allergy-name {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
   color: var(--ember-2);
   margin-bottom: 5px;
-  letter-spacing: -0.01em;
-  font-variation-settings: "opsz" 18;
+  letter-spacing: -0.005em;
 }
 
 .allergy-reaction { font-size: 13px; color: var(--ink-2); margin-bottom: 6px; line-height: 1.55; }
@@ -801,13 +792,12 @@ input:focus-visible {
 }
 
 .metric-name {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
   color: var(--ink);
   margin-bottom: 14px;
-  letter-spacing: -0.012em;
-  font-variation-settings: "opsz" 18;
+  letter-spacing: -0.006em;
 }
 
 .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
@@ -862,13 +852,12 @@ input:focus-visible {
 }
 
 .phase-title {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
   color: var(--ink);
   margin-bottom: 4px;
-  letter-spacing: -0.012em;
-  font-variation-settings: "opsz" 22;
+  letter-spacing: -0.008em;
 }
 
 .phase-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.7; }
@@ -890,20 +879,18 @@ input:focus-visible {
   color: var(--brand);
   border: 1.5px solid var(--brand);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display);
-  font-size: 14.5px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
   flex-shrink: 0;
-  font-variation-settings: "opsz" 14;
 }
 
 .pipeline-step-title {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
   color: var(--ink);
-  letter-spacing: -0.012em;
-  font-variation-settings: "opsz" 18;
+  letter-spacing: -0.006em;
 }
 
 .pipeline-step-desc { font-size: 13px; color: var(--ink-2); line-height: 1.7; }
@@ -987,24 +974,21 @@ input:focus-visible {
 }
 
 .ai-summary-icon {
-  width: 44px; height: 44px;
-  border-radius: 50%;
+  width: 42px; height: 42px;
+  border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 22px;
-  font-weight: 400;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 600;
   flex-shrink: 0;
   border: 1px solid;
-  font-variation-settings: "opsz" 24;
 }
 
 .ai-summary-label {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: -0.014em;
-  font-variation-settings: "opsz" 22;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.010em;
 }
 
 .ai-summary-sublabel {
@@ -1229,13 +1213,12 @@ input:focus-visible {
   border: 1.25px solid var(--rule-2);
   background: var(--card);
   color: var(--ink-3);
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
   display: flex; align-items: center; justify-content: center;
   z-index: 1;
   transition: all var(--transition);
-  font-variation-settings: "opsz" 14;
 }
 
 .scenario-step-dot.active {
@@ -1270,13 +1253,12 @@ input:focus-visible {
 }
 
 .audit-stat-value {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 400;
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 500;
   color: var(--ink);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.020em;
   font-feature-settings: "tnum";
-  font-variation-settings: "opsz" 60, "SOFT" 30;
   line-height: 1;
 }
 
@@ -1348,48 +1330,45 @@ input:focus-visible {
 }
 
 .patient-welcome-avatar {
-  width: 60px; height: 60px;
-  border-radius: 50%;
+  width: 56px; height: 56px;
+  border-radius: 8px;
   background: var(--ember-soft);
   border: 1px solid var(--ember-tint);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
   color: var(--ember-2);
   flex-shrink: 0;
-  font-variation-settings: "opsz" 24;
+  letter-spacing: -0.01em;
 }
 
 .patient-welcome-name {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 600;
   color: var(--ink);
-  letter-spacing: -0.022em;
-  line-height: 1.1;
-  font-variation-settings: "opsz" 60, "SOFT" 30;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
 }
 
 .patient-welcome-sub {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 15px;
+  font-family: var(--font-sans);
+  font-size: 14px;
   color: var(--ink-2);
   margin-top: 6px;
-  font-variation-settings: "opsz" 14;
+  letter-spacing: -0.005em;
 }
 
 .patient-welcome-stat { margin-left: auto; text-align: right; flex-shrink: 0; }
 
 .patient-welcome-stat-value {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--brand);
-  letter-spacing: -0.030em;
+  letter-spacing: -0.022em;
   font-feature-settings: "tnum";
-  font-variation-settings: "opsz" 96, "SOFT" 50;
   line-height: 1;
 }
 
@@ -1445,13 +1424,12 @@ input:focus-visible {
 .patient-consent-stat { display: flex; align-items: baseline; gap: 6px; }
 
 .patient-consent-stat-value {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--ember-2);
-  letter-spacing: -0.022em;
+  letter-spacing: -0.018em;
   font-feature-settings: "tnum";
-  font-variation-settings: "opsz" 60;
   line-height: 1;
 }
 
@@ -1568,11 +1546,9 @@ input:focus-visible {
 }
 
 .footer-tagline {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 13.5px;
+  font-family: var(--font-sans);
+  font-size: 13px;
   color: var(--ink-3);
-  font-variation-settings: "opsz" 14;
   letter-spacing: -0.005em;
 }
 
@@ -1591,7 +1567,7 @@ input:focus-visible {
 .footer-meta-divider { color: var(--ink-5); }
 
 /* ─── Typography helpers ─────────────────────────────────────────────────── */
-h1, h2, h3, h4 { letter-spacing: -0.018em; font-family: var(--font-display); font-weight: 500; }
+h1, h2, h3, h4 { letter-spacing: -0.014em; font-family: var(--font-sans); font-weight: 600; }
 
 /* tabular numerals for medical data */
 .row-item, .visit-meta, .audit-stat-value, .audit-entry-time, .accuracy-detail,
