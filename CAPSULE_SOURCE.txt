@@ -1,0 +1,2256 @@
+=== src/data.js ===
+// Capsule — Data Layer
+
+export const ROLES = {
+  gp: { label: "Dr. Sarah Liu", title: "General Practitioner", icon: "\u{1FA7A}", color: "#2563EB", bg: "#EFF6FF" },
+  physio: { label: "Tom Dunn", title: "Physiotherapist", icon: "\u{1F9B4}", color: "#0D9488", bg: "#F0FDFA" },
+  psych: { label: "Dr. Anya Mehta", title: "Psychologist", icon: "\u{1F9E0}", color: "#7C3AED", bg: "#F5F3FF" },
+  dietitian: { label: "Rachel Kwon", title: "Dietitian", icon: "\u{1F957}", color: "#16A34A", bg: "#F0FDF4" },
+};
+
+export const PATIENT = {
+  name: "Maria Chen",
+  age: 58,
+  dob: "1967-09-14",
+  patientGoals:
+    "Reduce back pain enough to return to gardening. Manage weight without extreme diets. Feel less anxious about health and reduce day-to-day anxiety.",
+};
+
+export const CONDITIONS = [
+  { id: "c1", name: "Chronic lower back pain (L4-L5 disc degeneration)", category: "musculoskeletal", severity: "moderate", managedBy: "gp,physio", sensitive: false },
+  { id: "c2", name: "Generalized Anxiety Disorder", category: "mental_health", severity: "moderate", managedBy: "psych,gp", sensitive: true, redactedView: "Mood disorder (managed, stable)" },
+  { id: "c3", name: "Pre-diabetes (HbA1c 6.2%)", category: "metabolic", severity: "mild", managedBy: "gp,dietitian", sensitive: false },
+  { id: "c4", name: "Mild obesity (BMI 31.4)", category: "metabolic", severity: "mild", managedBy: "gp,dietitian", sensitive: false },
+  { id: "c5", name: "Insomnia (secondary to anxiety)", category: "mental_health", severity: "mild", managedBy: "psych,gp", sensitive: true, redactedView: "Sleep disturbance (under treatment)" },
+];
+
+export const MEDICATIONS = [
+  {
+    name: "Sertraline 50mg", dose: "daily", prescriber: "gp", sensitive: true,
+    redactedView: "Centrally-acting medication \u2014 may affect pain perception & appetite",
+    interactionFlag: null,
+    roleRelevance: {
+      physio: "May affect pain perception and cause dizziness during exercises. Monitor for postural instability.",
+      dietitian: "May affect appetite regulation. Weight changes are a known side effect \u2014 relevant to nutrition planning.",
+    },
+  },
+  { name: "Paracetamol 500mg", dose: "as needed, max 4x/day", prescriber: "gp", sensitive: false, interactionFlag: null, roleRelevance: {} },
+  { name: "Meloxicam 7.5mg", dose: "daily with food", prescriber: "gp", sensitive: false, interactionFlag: "Monitor GI symptoms \u2014 long-term NSAID use with pre-diabetes", roleRelevance: {} },
+  {
+    name: "Melatonin 2mg", dose: "nightly", prescriber: "psych", sensitive: true,
+    redactedView: "Sleep aid (non-prescription)",
+    interactionFlag: null,
+    roleRelevance: {
+      physio: "May cause morning drowsiness. Consider scheduling sessions later in the day.",
+      dietitian: "No significant dietary interactions.",
+    },
+  },
+];
+
+export const ALLERGIES = [
+  { allergen: "Codeine", reaction: "Nausea, severe dizziness", severity: "moderate" },
+  { allergen: "Latex", reaction: "Contact dermatitis", severity: "mild" },
+];
+
+export const VISITS = [
+  {
+    id: "v1", date: "2026-02-28", provider: "gp", providerName: "Dr. Sarah Liu",
+    title: "Quarterly metabolic review + back pain follow-up",
+    summary: "HbA1c stable at 6.2%. Weight unchanged at 84kg. Maria reports back pain is 5/10, improved from 7/10 three months ago \u2014 attributes improvement to physiotherapy. Discussed continuing current NSAID regimen with periodic liver function monitoring. Referred to dietitian for structured pre-diabetes nutrition plan.",
+    sensitivePortion: "Maria mentioned increased worry about her mother\u2019s recent Alzheimer\u2019s diagnosis. Discussed whether current sertraline dose is adequate \u2014 agreed to monitor for 4 weeks before considering adjustment. PHQ-9 score: 8 (mild).",
+    sharedSummary: "Quarterly review. HbA1c stable at 6.2%, weight 84kg. Back pain improving (5/10, down from 7/10). Continuing current pain management. Dietitian referral placed for pre-diabetes nutrition support.",
+    tags: ["metabolic", "pain", "referral"],
+  },
+  {
+    id: "v2", date: "2026-02-21", provider: "physio", providerName: "Tom Dunn",
+    title: "Session 8 \u2014 Lower back rehabilitation",
+    summary: "Progressed to Stage 2 core stability program. Maria completing home exercises 4/7 days (up from 2/7). Lumbar flexion ROM improved 15\u00B0 since baseline. Pain during posterior chain loading reduced. Introduced gentle deadlift pattern with 5kg. Next session: reassess and consider hydrotherapy.",
+    sensitivePortion: null,
+    sharedSummary: "Physiotherapy session 8. Core stability progressing well. Home exercise compliance improving. Range of motion gains noted. Advancing rehabilitation program.",
+    tags: ["musculoskeletal", "rehabilitation"],
+  },
+  {
+    id: "v3", date: "2026-02-14", provider: "psych", providerName: "Dr. Anya Mehta",
+    title: "Session 12 \u2014 CBT for anxiety management",
+    summary: "Continued cognitive restructuring around health anxiety. Maria identified catastrophizing pattern linked to mother\u2019s Alzheimer\u2019s diagnosis \u2014 fear of own cognitive decline. Practiced thought record exercise in session. Sleep diary shows improvement: average onset now 25min (down from 50min). GAD-7: 9 (mild-moderate, down from 14 at intake).",
+    sensitivePortion: "Full session content is restricted. Maria processing grief around mother\u2019s diagnosis and childhood caregiving dynamics. Exploring relationship between unresolved family role expectations and current anxiety presentation.",
+    sharedSummary: "Psychology session. Anxiety management ongoing \u2014 clinically improving. Sleep quality improving with current approach.",
+    tags: ["mental_health"],
+  },
+  {
+    id: "v4", date: "2026-02-07", provider: "dietitian", providerName: "Rachel Kwon",
+    title: "Initial nutrition assessment \u2014 pre-diabetes management",
+    summary: "Comprehensive dietary assessment completed. Current intake: high refined carbohydrates, irregular meal timing, low fibre. Maria motivated but reports emotional eating when anxious. Designed initial meal plan: Mediterranean-style, 3 meals + 2 snacks, emphasis on low-GI foods and increased vegetable intake. Goal: reduce HbA1c to <6.0% over 6 months without calorie restriction.",
+    sensitivePortion: null,
+    sharedSummary: "Initial nutrition assessment. Mediterranean-style meal plan initiated for pre-diabetes management. Targeting HbA1c reduction through dietary modification. Patient motivated.",
+    tags: ["metabolic", "nutrition"],
+  },
+];
+
+export const TREATMENT_PLANS = [
+  {
+    provider: "gp",
+    plan: "Continue meloxicam with quarterly liver function monitoring. Track HbA1c every 3 months. Review mental health medication in 4 weeks. Coordinate with physio on pain trajectory.",
+    sensitivePlan: "Monitor sertraline efficacy given increased anxiety around family health concerns. Consider dose adjustment if PHQ-9 or GAD-7 worsen at next review.",
+    sharedPlan: "Pain management ongoing with periodic monitoring. Metabolic tracking every 3 months. Coordinating with physiotherapy and dietetics.",
+  },
+  {
+    provider: "physio",
+    plan: "Progress to Stage 3 core stability by end of March. Target 5/7 day home exercise compliance. Reassess for hydrotherapy candidacy. Long-term goal: return to gardening by May.",
+    sensitivePlan: null,
+    sharedPlan: "Rehabilitation progressing through staged core stability program. Targeting return to gardening activities by May 2026.",
+  },
+  {
+    provider: "psych",
+    plan: "Continue weekly CBT sessions (4 more planned). Focus on health anxiety and grief processing. Reassess GAD-7 monthly. Coordinate with GP on medication review if anxiety worsens.",
+    sensitivePlan: "Deeper grief work around mother\u2019s diagnosis likely needed. May recommend extending beyond 16-session initial plan.",
+    sharedPlan: "Psychological support ongoing. Anxiety improving with current treatment approach.",
+  },
+  {
+    provider: "dietitian",
+    plan: "Follow-up in 3 weeks to assess meal plan adherence. Track food diary. Coordinate with GP on HbA1c trajectory. Explore cooking strategies that accommodate back pain limitations.",
+    sensitivePlan: null,
+    sharedPlan: "Nutrition plan in progress. Follow-up scheduled to assess adherence. Coordinating with GP on metabolic targets.",
+  },
+];
+
+export const DEFAULT_CONSENT = {
+  gp: { mental_health_detail: true, all_medications: true, session_content: false, substance_history: false },
+  physio: { mental_health_detail: false, all_medications: false, session_content: false, substance_history: false },
+  psych: { mental_health_detail: true, all_medications: true, session_content: true, substance_history: false },
+  dietitian: { mental_health_detail: false, all_medications: false, session_content: false, substance_history: false },
+};
+
+export const AI_SUMMARIES = {
+  gp: "Maria is a 58-year-old woman managing chronic lower back pain, generalized anxiety, and pre-diabetes. Her back pain is improving with physiotherapy (5/10, down from 7/10). HbA1c is stable at 6.2% \u2014 dietitian has initiated a Mediterranean-style nutrition plan. Anxiety is being managed through CBT with Dr. Mehta \u2014 GAD-7 trending down. Current sertraline dose under review. Key coordination point: emotional eating pattern may link anxiety management to metabolic outcomes.",
+  physio: "Maria presents for ongoing lower back rehabilitation (L4-L5 disc degeneration). She is progressing well through Stage 2 core stability and reports improved home exercise compliance (4/7 days). Pain has decreased from 7/10 to 5/10. She is on daily NSAIDs and a centrally-acting medication that may affect pain perception. Goal: return to gardening by May. Also managing a metabolic condition through dietary changes, which may affect energy levels.",
+  psych: "Maria is in Session 12 of CBT for generalized anxiety disorder. GAD-7 has improved from 14 to 9. Primary triggers include health concerns and her mother\u2019s recent Alzheimer\u2019s diagnosis. Sleep improving (onset 25min, down from 50min). On sertraline 50mg (GP \u2014 dose review pending). Chronic pain managed by physiotherapy may interact with anxiety presentation. Emotional eating noted by dietitian \u2014 potential integrated approach.",
+  dietitian: "Maria referred for pre-diabetes nutrition management (HbA1c 6.2%, BMI 31.4). High refined carb intake, irregular meal timing. Mediterranean-style meal plan initiated. Motivated but reports emotional eating linked to stress. Chronic back pain (physiotherapy) may limit food preparation. On a centrally-acting medication that may affect appetite. Coordinate with GP on metabolic trajectory.",
+  patient: "Here\u2019s a summary of your current health picture, Maria. You\u2019re being treated for chronic lower back pain, which is improving with physiotherapy \u2014 your pain has gone from 7/10 to 5/10. You\u2019re also working with a dietitian on a Mediterranean-style eating plan to help manage your blood sugar levels (HbA1c 6.2%). Your anxiety management sessions with Dr. Mehta are helping, and your sleep is improving. Your GP is coordinating your care across all providers.",
+};
+
+// AI summaries that change when consent is restricted (medication visibility revoked)
+export const AI_SUMMARIES_RESTRICTED_MEDS = {
+  physio: "Maria presents for ongoing lower back rehabilitation (L4-L5 disc degeneration). She is progressing well through Stage 2 core stability and reports improved home exercise compliance (4/7 days). Pain has decreased from 7/10 to 5/10. She is on daily NSAIDs. Goal: return to gardening by May. Also managing a metabolic condition through dietary changes, which may affect energy levels.",
+  dietitian: "Maria referred for pre-diabetes nutrition management (HbA1c 6.2%, BMI 31.4). High refined carb intake, irregular meal timing. Mediterranean-style meal plan initiated. Motivated but reports emotional eating linked to stress. Chronic back pain (physiotherapy) may limit food preparation. Coordinate with GP on metabolic trajectory.",
+};
+
+// AI summaries when mental health detail is revoked
+export const AI_SUMMARIES_RESTRICTED_MH = {
+  gp: "Maria is a 58-year-old woman managing chronic lower back pain and pre-diabetes. Her back pain is improving with physiotherapy (5/10, down from 7/10). HbA1c is stable at 6.2% \u2014 dietitian has initiated a Mediterranean-style nutrition plan. A mood disorder is being managed and is stable. Key coordination point: emotional eating pattern may link current treatment to metabolic outcomes.",
+  physio: "Maria presents for ongoing lower back rehabilitation (L4-L5 disc degeneration). She is progressing well through Stage 2 core stability and reports improved home exercise compliance (4/7 days). Pain has decreased from 7/10 to 5/10. She is on daily NSAIDs. Goal: return to gardening by May. Also managing a metabolic condition through dietary changes, which may affect energy levels.",
+  dietitian: "Maria referred for pre-diabetes nutrition management (HbA1c 6.2%, BMI 31.4). High refined carb intake, irregular meal timing. Mediterranean-style meal plan initiated. Motivated but reports emotional eating linked to stress. Chronic back pain (physiotherapy) may limit food preparation. Coordinate with GP on metabolic trajectory.",
+};
+
+// Visibility helpers — now accept consent as parameter
+export function getVisibleConditions(role, consent) {
+  return CONDITIONS.map((c) => {
+    if (!c.sensitive) return { ...c, display: c.name };
+    return consent[role]?.mental_health_detail
+      ? { ...c, display: c.name }
+      : { ...c, display: c.redactedView, redacted: true };
+  });
+}
+
+export function getVisibleMedications(role, consent) {
+  return MEDICATIONS.map((m) => {
+    if (!m.sensitive) return { ...m, display: m.name };
+    return consent[role]?.all_medications
+      ? { ...m, display: m.name }
+      : { ...m, display: m.redactedView, redacted: true };
+  });
+}
+
+export function getVisibleVisits(role, consent) {
+  return VISITS.map((v) => {
+    if (v.provider === role)
+      return {
+        ...v,
+        displaySummary: v.summary + (v.sensitivePortion ? "\n\n" + v.sensitivePortion : ""),
+        access: "full",
+      };
+    if (v.tags.includes("mental_health") && !consent[role]?.mental_health_detail)
+      return { ...v, displaySummary: v.sharedSummary, access: "limited" };
+    return { ...v, displaySummary: v.sharedSummary, access: "shared" };
+  });
+}
+
+export function getVisiblePlans(role, consent) {
+  return TREATMENT_PLANS.map((tp) => {
+    if (tp.provider === role)
+      return {
+        ...tp,
+        displayPlan: tp.plan + (tp.sensitivePlan ? "\n\u2695\uFE0F " + tp.sensitivePlan : ""),
+        access: "full",
+      };
+    return { ...tp, displayPlan: tp.sharedPlan, access: "shared" };
+  });
+}
+
+export function getAISummary(role, consent) {
+  if (role === "patient") return AI_SUMMARIES.patient;
+  const hasMeds = consent[role]?.all_medications;
+  const hasMH = consent[role]?.mental_health_detail;
+  // If mental health detail is revoked, use MH-restricted summary
+  if (!hasMH && AI_SUMMARIES_RESTRICTED_MH[role]) {
+    return AI_SUMMARIES_RESTRICTED_MH[role];
+  }
+  // If medication visibility is revoked, use meds-restricted summary
+  if (!hasMeds && AI_SUMMARIES_RESTRICTED_MEDS[role]) {
+    return AI_SUMMARIES_RESTRICTED_MEDS[role];
+  }
+  return AI_SUMMARIES[role];
+}
+
+// Consent labels (shared between patient and provider views)
+export const CONSENT_LABELS = {
+  mental_health_detail: "See specific mental health diagnoses",
+  all_medications: "See all medication names (including psychiatric)",
+  session_content: "See detailed therapy session notes",
+  substance_history: "See substance use history",
+};
+
+export const WHY_ITEMS = [
+  { title: "Safe by default, open by choice", desc: "Maria never has to act to protect herself. She only acts to share more \u2014 like giving her GP access to psychiatric details for medication coordination." },
+  { title: "Granular but not overwhelming", desc: "Four categories, four providers. \u201CDo I want my physio to know I take sertraline?\u201D is a question Maria can actually answer." },
+  { title: "Revocable at any time", desc: "Consent can be adjusted instantly. Previously shared summaries don\u2019t retroactively change, but new information stops flowing." },
+  { title: "Reduces liability for everyone", desc: "Practitioners can\u2019t be blamed for not knowing something the patient chose not to share, or for seeing something the patient chose to reveal." },
+];
+
+// Audit log mock data
+export const AUDIT_LOG = [
+  { id: 1, timestamp: "2026-03-07 09:14:22", actor: "Dr. Sarah Liu", actorRole: "gp", action: "viewed", target: "Patient Summary", detail: "Full access view" },
+  { id: 2, timestamp: "2026-03-07 09:15:01", actor: "Dr. Sarah Liu", actorRole: "gp", action: "confirmed", target: "AI Summary", detail: "Marked as accurate" },
+  { id: 3, timestamp: "2026-03-07 10:32:15", actor: "Tom Dunn", actorRole: "physio", action: "viewed", target: "Patient Summary", detail: "Role-filtered view (physio)" },
+  { id: 4, timestamp: "2026-03-07 10:33:44", actor: "Tom Dunn", actorRole: "physio", action: "flagged", target: "AI Summary", detail: "Flagged: \u2018centrally-acting medication\u2019 wording unclear for exercise safety" },
+  { id: 5, timestamp: "2026-03-06 14:02:30", actor: "Maria Chen", actorRole: "patient", action: "consent_changed", target: "Physio \u2192 all_medications", detail: "Revoked: See all medication names" },
+  { id: 6, timestamp: "2026-03-06 14:02:45", actor: "System", actorRole: "system", action: "regenerated", target: "AI Summary (physio view)", detail: "Summary regenerated after consent change" },
+  { id: 7, timestamp: "2026-03-06 11:20:00", actor: "Dr. Anya Mehta", actorRole: "psych", action: "viewed", target: "Patient Summary", detail: "Full access view (mental health)" },
+  { id: 8, timestamp: "2026-03-05 16:45:12", actor: "Rachel Kwon", actorRole: "dietitian", action: "viewed", target: "Patient Summary", detail: "Role-filtered view (dietitian)" },
+  { id: 9, timestamp: "2026-03-05 16:46:30", actor: "Rachel Kwon", actorRole: "dietitian", action: "confirmed", target: "AI Summary", detail: "Marked as accurate" },
+  { id: 10, timestamp: "2026-03-05 09:00:00", actor: "Maria Chen", actorRole: "patient", action: "consent_changed", target: "GP \u2192 mental_health_detail", detail: "Granted: See specific mental health diagnoses" },
+  { id: 11, timestamp: "2026-03-04 13:22:18", actor: "Dr. Sarah Liu", actorRole: "gp", action: "emergency_override", target: "Full Record Access", detail: "Emergency override activated \u2014 reason: acute medication reaction assessment" },
+  { id: 12, timestamp: "2026-03-04 13:22:19", actor: "System", actorRole: "system", action: "notification", target: "Maria Chen", detail: "Patient notified of emergency access override" },
+];
+
+=== src/App.jsx ===
+import { useState } from "react";
+import "./App.css";
+import { ROLES, PATIENT, DEFAULT_CONSENT } from "./data";
+import SummaryTab from "./tabs/SummaryTab";
+import CompareTab from "./tabs/CompareTab";
+import DataModelTab from "./tabs/DataModelTab";
+import ScenarioTab from "./tabs/ScenarioTab";
+import AuditTab from "./tabs/AuditTab";
+import RegulatoryTab from "./tabs/RegulatoryTab";
+import QualityTab from "./tabs/QualityTab";
+import SafetyTab from "./tabs/SafetyTab";
+import RationaleTab from "./tabs/RationaleTab";
+import PatientDashboard from "./tabs/PatientDashboard";
+import PatientConsent from "./tabs/PatientConsent";
+import TransparencyTab from "./tabs/TransparencyTab";
+
+const PROVIDER_TABS = [
+  { id: "summary", label: "Patient Summary" },
+  { id: "compare", label: "Compare Views" },
+  { id: "scenario", label: "Safety Scenario" },
+];
+
+const PATIENT_TABS = [
+  { id: "dashboard", label: "My Health" },
+  { id: "consent", label: "My Privacy Settings" },
+  { id: "transparency", label: "Who Sees What" },
+];
+
+const SYSTEM_TABS = [
+  { id: "data", label: "Data Model" },
+  { id: "audit", label: "Audit Trail" },
+  { id: "reg", label: "Regulatory" },
+  { id: "quality", label: "Quality Metrics" },
+  { id: "safety", label: "AI Safety" },
+  { id: "rationale", label: "Design Rationale" },
+];
+
+const MODES = [
+  { id: "provider", label: "Provider View", icon: "\u{1FA7A}" },
+  { id: "patient", label: "Patient Portal", icon: "\u{1F464}" },
+  { id: "system", label: "How It Works", icon: "\u2699\uFE0F" },
+];
+
+export default function App() {
+  const [mode, setMode] = useState("provider");
+  const [role, setRole] = useState("gp");
+  const [tab, setTab] = useState("summary");
+  const [consent, setConsent] = useState(DEFAULT_CONSENT);
+
+  const toggleConsent = (targetRole, key) =>
+    setConsent((prev) => ({
+      ...prev,
+      [targetRole]: { ...prev[targetRole], [key]: !prev[targetRole][key] },
+    }));
+
+  const switchMode = (newMode) => {
+    setMode(newMode);
+    if (newMode === "provider" && !PROVIDER_TABS.find((t) => t.id === tab)) {
+      setTab("summary");
+    }
+    if (newMode === "patient" && !PATIENT_TABS.find((t) => t.id === tab)) {
+      setTab("dashboard");
+    }
+    if (newMode === "system" && !SYSTEM_TABS.find((t) => t.id === tab)) {
+      setTab("data");
+    }
+  };
+
+  const activeTabs =
+    mode === "provider" ? PROVIDER_TABS :
+    mode === "patient" ? PATIENT_TABS :
+    SYSTEM_TABS;
+
+  return (
+    <div style={{ minHeight: "100vh" }}>
+      {/* Header */}
+      <header className="app-header">
+        <div className="header-inner">
+          <div className="header-brand">
+            <div className="header-logo">C</div>
+            <div>
+              <div className="header-title">Capsule</div>
+              <div className="header-subtitle">Shared Patient Summary</div>
+            </div>
+          </div>
+          <div className="header-right">
+            <div className="header-patient">
+              {PATIENT.name}, {PATIENT.age} &middot; DOB: {PATIENT.dob}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Content */}
+      <div className="app-layout">
+        {/* Mode Switcher */}
+        <div className="mode-bar">
+          <div className="mode-switcher">
+            {MODES.map((m) => (
+              <button
+                key={m.id}
+                className={`mode-btn${mode === m.id ? " active" : ""}${m.id === "patient" ? " mode-btn-patient" : ""}`}
+                onClick={() => switchMode(m.id)}
+              >
+                <span className="mode-btn-icon">{m.icon}</span>
+                {m.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Role Selector (provider mode only) */}
+        {mode === "provider" && (
+          <div className="role-section">
+            <div className="role-section-label">Viewing as:</div>
+            <div className="role-grid">
+              {Object.entries(ROLES).map(([key, r]) => (
+                <button
+                  key={key}
+                  className={`role-btn${role === key ? " active" : ""}`}
+                  onClick={() => setRole(key)}
+                  style={
+                    role === key
+                      ? { borderColor: r.color, background: r.bg }
+                      : undefined
+                  }
+                >
+                  <span className="role-icon">{r.icon}</span>
+                  <div className="role-info">
+                    <div
+                      className="role-name"
+                      style={role === key ? { color: r.color } : undefined}
+                    >
+                      {r.label}
+                    </div>
+                    <div className="role-title">{r.title}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Sub-Tab Navigation */}
+        <div className="tab-nav">
+          {activeTabs.map((t) => (
+            <button
+              key={t.id}
+              className={`tab-btn${tab === t.id ? " active" : ""}`}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div className="tab-content" key={tab === "summary" ? tab + role : tab}>
+          {/* Provider tabs */}
+          {tab === "summary" && <SummaryTab role={role} consent={consent} />}
+          {tab === "compare" && <CompareTab consent={consent} />}
+          {tab === "scenario" && <ScenarioTab consent={consent} />}
+
+          {/* Patient tabs */}
+          {tab === "dashboard" && <PatientDashboard consent={consent} />}
+          {tab === "consent" && <PatientConsent consent={consent} onToggle={toggleConsent} />}
+          {tab === "transparency" && <TransparencyTab consent={consent} />}
+
+          {/* System tabs */}
+          {tab === "data" && <DataModelTab />}
+          {tab === "audit" && <AuditTab />}
+          {tab === "reg" && <RegulatoryTab />}
+          {tab === "quality" && <QualityTab />}
+          {tab === "safety" && <SafetyTab />}
+          {tab === "rationale" && <RationaleTab />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/SummaryTab.jsx ===
+import { useState } from "react";
+import {
+  ROLES, PATIENT, ALLERGIES,
+  getVisibleConditions, getVisibleMedications, getVisibleVisits, getVisiblePlans, getAISummary,
+} from "../data";
+
+function AccessBadge({ access }) {
+  if (access === "full") return <span className="badge badge-green">Full Access</span>;
+  if (access === "limited") return <span className="badge badge-amber">Redacted</span>;
+  return <span className="badge badge-blue">Shared Summary</span>;
+}
+
+function RedactedIndicator() {
+  return <span className="redacted-indicator">&#9888; Patient-controlled redaction</span>;
+}
+
+function RelevanceTooltip({ text }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <span style={{ position: "relative", display: "inline-block" }}>
+      <button
+        className="relevance-btn"
+        onClick={() => setOpen(!open)}
+        aria-label="Why is this relevant?"
+      >
+        Why relevant?
+      </button>
+      {open && (
+        <div className="relevance-tooltip">
+          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--accent)", marginBottom: 4, fontFamily: "'JetBrains Mono', monospace" }}>
+            CLINICAL RELEVANCE
+          </div>
+          <div style={{ fontSize: 12, color: "var(--text)", lineHeight: 1.5 }}>{text}</div>
+        </div>
+      )}
+    </span>
+  );
+}
+
+function ConsentIndicator({ consent, role }) {
+  const granted = Object.values(consent[role] || {}).filter(Boolean).length;
+  const total = Object.values(consent[role] || {}).length;
+  if (granted === total) return null;
+  return (
+    <div className="consent-indicator">
+      <span className="consent-indicator-icon">&#128274;</span>
+      <span>Patient has shared {granted}/{total} data categories with this role</span>
+    </div>
+  );
+}
+
+export default function SummaryTab({ role, consent }) {
+  const [feedback, setFeedback] = useState(null);
+  const [flagText, setFlagText] = useState("");
+  const [flagSubmitted, setFlagSubmitted] = useState(false);
+  const [emergencyActive, setEmergencyActive] = useState(false);
+  const [emergencyReason, setEmergencyReason] = useState("");
+  const [showEmergencyModal, setShowEmergencyModal] = useState(false);
+
+  const effectiveConsent = emergencyActive
+    ? { ...consent, [role]: { mental_health_detail: true, all_medications: true, session_content: true, substance_history: true } }
+    : consent;
+
+  const conditions = getVisibleConditions(role, effectiveConsent);
+  const medications = getVisibleMedications(role, effectiveConsent);
+  const visits = getVisibleVisits(role, effectiveConsent);
+  const plans = getVisiblePlans(role, effectiveConsent);
+  const aiSummary = getAISummary(role, effectiveConsent);
+  const ri = ROLES[role];
+
+  const handleEmergencyActivate = () => {
+    if (emergencyReason.trim().length < 5) return;
+    setEmergencyActive(true);
+    setShowEmergencyModal(false);
+  };
+
+  return (
+    <div>
+      {/* Consent Indicator */}
+      {!emergencyActive && <ConsentIndicator consent={consent} role={role} />}
+
+      {/* Emergency Override Banner */}
+      {emergencyActive && (
+        <div className="card" style={{ background: "var(--red-bg)", borderColor: "var(--red-border)", borderWidth: 2 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--red)", marginBottom: 4 }}>
+                &#128680; Emergency Override Active
+              </div>
+              <div style={{ fontSize: 12, color: "var(--text-sec)" }}>
+                Full record access granted. Reason: &ldquo;{emergencyReason}&rdquo; &mdash; Patient has been notified. Full audit trail recorded.
+              </div>
+            </div>
+            <button
+              className="btn btn-outline-red"
+              onClick={() => setEmergencyActive(false)}
+            >
+              Deactivate
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* AI Summary with Feedback */}
+      <div
+        className="card ai-summary-card"
+        style={{
+          background: `linear-gradient(135deg, ${ri.bg}, #fff)`,
+          borderColor: ri.color + "25",
+          borderTopColor: ri.color,
+          borderTopWidth: 3,
+        }}
+      >
+        <div className="ai-summary-header">
+          <div className="ai-summary-icon" style={{ background: ri.color + "12", color: ri.color }}>&#10022;</div>
+          <div style={{ flex: 1 }}>
+            <div className="ai-summary-label" style={{ color: ri.color }}>
+              AI-Generated Summary &mdash; View for {ri.title}
+            </div>
+            <div className="ai-summary-sublabel">
+              Synthesized from shared records &bull; Tailored to clinical role
+            </div>
+          </div>
+        </div>
+        <p className="ai-summary-text">{aiSummary}</p>
+
+        {/* Feedback buttons */}
+        <div className="ai-feedback">
+          {feedback === null && (
+            <div className="ai-feedback-buttons">
+              <button className="btn btn-sm btn-green" onClick={() => { setFeedback("confirmed"); setFlagSubmitted(false); }}>
+                &#10003; Confirm Accurate
+              </button>
+              <button className="btn btn-sm btn-amber" onClick={() => setFeedback("flagged")}>
+                &#9873; Flag Inaccuracy
+              </button>
+            </div>
+          )}
+          {feedback === "confirmed" && (
+            <div className="ai-feedback-result" style={{ color: "var(--green)" }}>
+              &#10003; Marked as accurate by {ri.label} &mdash; logged to quality dashboard
+            </div>
+          )}
+          {feedback === "flagged" && !flagSubmitted && (
+            <div className="ai-feedback-flag">
+              <input
+                type="text"
+                className="flag-input"
+                placeholder="Describe the inaccuracy..."
+                value={flagText}
+                onChange={(e) => setFlagText(e.target.value)}
+              />
+              <button
+                className="btn btn-sm btn-accent"
+                onClick={() => { if (flagText.trim()) setFlagSubmitted(true); }}
+              >
+                Submit Flag
+              </button>
+            </div>
+          )}
+          {feedback === "flagged" && flagSubmitted && (
+            <div className="ai-feedback-result" style={{ color: "var(--amber)" }}>
+              &#9873; Flagged by {ri.label}: &ldquo;{flagText}&rdquo; &mdash; Summary will be regenerated &amp; error pattern logged
+            </div>
+          )}
+          {(feedback === "confirmed" || (feedback === "flagged" && flagSubmitted)) && (
+            <button className="btn-link" onClick={() => { setFeedback(null); setFlagText(""); setFlagSubmitted(false); }} style={{ marginTop: 6 }}>
+              Change response
+            </button>
+          )}
+
+          {/* Mock accuracy dashboard */}
+          <div className="accuracy-bar">
+            <div className="accuracy-stats">
+              <span>AI Summary Accuracy</span>
+              <span style={{ fontWeight: 700, color: "var(--green)" }}>97.2%</span>
+            </div>
+            <div className="accuracy-track">
+              <div className="accuracy-fill" style={{ width: "97.2%" }} />
+            </div>
+            <div className="accuracy-detail">
+              331 confirmed &middot; 7 flagged &middot; 2 regenerated this month
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Emergency Override Button */}
+      {!emergencyActive && (
+        <div className="card" style={{ padding: "14px 22px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)" }}>Need emergency access?</div>
+            <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Override consent restrictions for urgent clinical need. Fully audited.</div>
+          </div>
+          <button className="btn btn-sm btn-red-outline" onClick={() => setShowEmergencyModal(true)}>
+            &#128680; Break Glass
+          </button>
+        </div>
+      )}
+
+      {/* Emergency Modal */}
+      {showEmergencyModal && (
+        <div className="modal-backdrop" onClick={() => setShowEmergencyModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: "var(--red)", marginBottom: 6 }}>&#128680; Emergency Access Override</div>
+            <p style={{ fontSize: 13, color: "var(--text-sec)", lineHeight: 1.6, marginBottom: 16 }}>
+              This will grant full access to all patient records regardless of consent settings. This action is:
+            </p>
+            <div className="stack stack-sm" style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 12, color: "var(--text)", padding: "6px 10px", background: "var(--red-bg)", borderRadius: 6 }}>&#8226; Logged with your identity and timestamp</div>
+              <div style={{ fontSize: 12, color: "var(--text)", padding: "6px 10px", background: "var(--red-bg)", borderRadius: 6 }}>&#8226; Patient will be notified immediately</div>
+              <div style={{ fontSize: 12, color: "var(--text)", padding: "6px 10px", background: "var(--red-bg)", borderRadius: 6 }}>&#8226; Subject to clinical governance review</div>
+            </div>
+            <label style={{ fontSize: 12, fontWeight: 600, color: "var(--text)", display: "block", marginBottom: 6 }}>Reason for emergency access *</label>
+            <input
+              type="text"
+              className="flag-input"
+              placeholder="e.g., Acute medication reaction assessment"
+              value={emergencyReason}
+              onChange={(e) => setEmergencyReason(e.target.value)}
+              style={{ marginBottom: 14 }}
+            />
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button className="btn btn-sm btn-ghost" onClick={() => setShowEmergencyModal(false)}>Cancel</button>
+              <button className="btn btn-sm btn-red" onClick={handleEmergencyActivate} disabled={emergencyReason.trim().length < 5}>
+                Activate Override
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Active Conditions */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128203;</span> Active Conditions
+        </div>
+        <div className="stack stack-sm">
+          {conditions.map((c) => (
+            <div key={c.id} className={`row-item${c.redacted ? " redacted" : ""}`}>
+              <div>
+                <div className="row-item-primary">{c.display}</div>
+                <div className="row-item-secondary">
+                  Managed by: {c.managedBy.split(",").map((r) => ROLES[r]?.title).join(", ")}
+                </div>
+              </div>
+              <div className="row-item-right">
+                {c.redacted && <RedactedIndicator />}
+                <span className={`badge ${c.severity === "moderate" ? "badge-amber" : "badge-green"}`}>
+                  {c.severity}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Medications */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128138;</span> Current Medications
+        </div>
+        <div className="stack stack-sm">
+          {medications.map((m, i) => (
+            <div key={i}>
+              <div className={`row-item${m.redacted ? " redacted" : ""}`}>
+                <div>
+                  <div className="row-item-primary">
+                    {m.display}
+                    {m.redacted && m.roleRelevance?.[role] && (
+                      <RelevanceTooltip text={m.roleRelevance[role]} />
+                    )}
+                  </div>
+                  <div className="row-item-secondary">
+                    {m.redacted ? "" : m.dose + " \u2022 "}
+                    Prescribed by {ROLES[m.prescriber]?.title}
+                  </div>
+                </div>
+                {m.redacted && !m.roleRelevance?.[role] && (
+                  <div className="row-item-right"><RedactedIndicator /></div>
+                )}
+              </div>
+              {m.interactionFlag && (
+                <div className="interaction-flag">&#9888;&#65039; {m.interactionFlag}</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Allergies */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128680;</span> Allergies & Contraindications
+          <span className="badge badge-green" style={{ marginLeft: "auto" }}>Always Shared</span>
+        </div>
+        <div className="allergy-grid">
+          {ALLERGIES.map((a, i) => (
+            <div key={i} className="allergy-item">
+              <div className="allergy-name">{a.allergen}</div>
+              <div className="allergy-reaction">{a.reaction}</div>
+              <span className="badge badge-red">{a.severity}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Patient Goals */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#127919;</span> Patient-Reported Goals
+        </div>
+        <p style={{ fontSize: 14, lineHeight: 1.75, fontStyle: "italic", color: "var(--text-sec)" }}>
+          &ldquo;{PATIENT.patientGoals}&rdquo;
+        </p>
+      </div>
+
+      {/* Recent Visits */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128197;</span> Recent Visits
+        </div>
+        <div className="stack stack-md">
+          {visits.map((v) => {
+            const vR = ROLES[v.provider];
+            return (
+              <div key={v.id} className="visit-card">
+                <div className="visit-header">
+                  <div className="visit-provider">
+                    <span className="visit-provider-icon">{vR.icon}</span>
+                    <div>
+                      <div className="visit-title">{v.title}</div>
+                      <div className="visit-meta">{v.providerName} &bull; {v.date}</div>
+                    </div>
+                  </div>
+                  <AccessBadge access={v.access} />
+                </div>
+                <p className="visit-body">{v.displaySummary}</p>
+                {v.access === "limited" && (
+                  <div style={{ marginTop: 8 }}><RedactedIndicator /></div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Treatment Plans */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128221;</span> Treatment Plans
+        </div>
+        <div className="stack stack-md">
+          {plans.map((tp, i) => {
+            const pR = ROLES[tp.provider];
+            return (
+              <div key={i} className="visit-card">
+                <div className="visit-header">
+                  <div className="visit-provider">
+                    <span className="visit-provider-icon">{pR.icon}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600 }}>{pR.title}</span>
+                  </div>
+                  <AccessBadge access={tp.access} />
+                </div>
+                <p className="visit-body">{tp.displayPlan}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/CompareTab.jsx ===
+import { useState } from "react";
+import { ROLES, getVisibleConditions, getVisibleMedications, getAISummary } from "../data";
+
+const ROLE_KEYS = Object.keys(ROLES);
+
+export default function CompareTab({ consent }) {
+  const [leftRole, setLeftRole] = useState("gp");
+  const [rightRole, setRightRole] = useState("physio");
+
+  const leftRI = ROLES[leftRole];
+  const rightRI = ROLES[rightRole];
+  const leftSummary = getAISummary(leftRole, consent);
+  const rightSummary = getAISummary(rightRole, consent);
+  const leftConditions = getVisibleConditions(leftRole, consent);
+  const rightConditions = getVisibleConditions(rightRole, consent);
+  const leftMeds = getVisibleMedications(leftRole, consent);
+  const rightMeds = getVisibleMedications(rightRole, consent);
+
+  function RoleSelector({ value, onChange, side }) {
+    return (
+      <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 12 }}>
+        {ROLE_KEYS.map((k) => {
+          const r = ROLES[k];
+          return (
+            <button
+              key={k}
+              className={`btn btn-sm ${value === k ? "btn-accent" : "btn-ghost"}`}
+              onClick={() => onChange(k)}
+              style={value === k ? { background: r.color, borderColor: r.color } : undefined}
+            >
+              {r.icon} {r.title.split(" ")[0]}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function DiffIndicator({ left, right }) {
+    const same = left === right;
+    return same
+      ? <span className="badge badge-green" style={{ fontSize: 9 }}>Same</span>
+      : <span className="badge badge-amber" style={{ fontSize: 9 }}>Different</span>;
+  }
+
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--accent-light)", borderColor: "rgba(37,99,235,0.2)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--accent)", marginBottom: 6 }}>
+          Side-by-Side Role Comparison
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          See exactly how the same patient data appears to different practitioners. The visual difference demonstrates how role-based filtering works in practice &mdash; same patient, different clinical lenses.
+        </p>
+      </div>
+
+      <div className="compare-grid">
+        {/* Left Panel */}
+        <div className="compare-panel">
+          <div className="compare-panel-header" style={{ background: leftRI.bg, borderColor: leftRI.color + "30" }}>
+            <span style={{ fontSize: 22 }}>{leftRI.icon}</span>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: leftRI.color }}>{leftRI.label}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{leftRI.title}</div>
+            </div>
+          </div>
+          <RoleSelector value={leftRole} onChange={setLeftRole} side="left" />
+
+          {/* AI Summary */}
+          <div className="compare-section">
+            <div className="section-title" style={{ fontSize: 10 }}>
+              <span className="section-title-icon">&#10022;</span> AI Summary
+              <DiffIndicator left={leftSummary} right={rightSummary} />
+            </div>
+            <p style={{ fontSize: 12.5, lineHeight: 1.65, color: "var(--text-sec)" }}>{leftSummary}</p>
+          </div>
+
+          {/* Conditions */}
+          <div className="compare-section">
+            <div className="section-title" style={{ fontSize: 10 }}>
+              <span className="section-title-icon">&#128203;</span> Conditions
+            </div>
+            <div className="stack stack-sm">
+              {leftConditions.map((c) => (
+                <div key={c.id} className={`compare-item${c.redacted ? " compare-redacted" : ""}`}>
+                  <span>{c.display}</span>
+                  {c.redacted && <span className="badge badge-amber" style={{ fontSize: 8, padding: "1px 5px" }}>Redacted</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Medications */}
+          <div className="compare-section">
+            <div className="section-title" style={{ fontSize: 10 }}>
+              <span className="section-title-icon">&#128138;</span> Medications
+            </div>
+            <div className="stack stack-sm">
+              {leftMeds.map((m, i) => (
+                <div key={i} className={`compare-item${m.redacted ? " compare-redacted" : ""}`}>
+                  <span>{m.display}</span>
+                  {m.redacted && <span className="badge badge-amber" style={{ fontSize: 8, padding: "1px 5px" }}>Redacted</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="compare-divider">
+          <div className="compare-divider-line" />
+          <div className="compare-divider-label">VS</div>
+          <div className="compare-divider-line" />
+        </div>
+
+        {/* Right Panel */}
+        <div className="compare-panel">
+          <div className="compare-panel-header" style={{ background: rightRI.bg, borderColor: rightRI.color + "30" }}>
+            <span style={{ fontSize: 22 }}>{rightRI.icon}</span>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: rightRI.color }}>{rightRI.label}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{rightRI.title}</div>
+            </div>
+          </div>
+          <RoleSelector value={rightRole} onChange={setRightRole} side="right" />
+
+          {/* AI Summary */}
+          <div className="compare-section">
+            <div className="section-title" style={{ fontSize: 10 }}>
+              <span className="section-title-icon">&#10022;</span> AI Summary
+              <DiffIndicator left={leftSummary} right={rightSummary} />
+            </div>
+            <p style={{ fontSize: 12.5, lineHeight: 1.65, color: "var(--text-sec)" }}>{rightSummary}</p>
+          </div>
+
+          {/* Conditions */}
+          <div className="compare-section">
+            <div className="section-title" style={{ fontSize: 10 }}>
+              <span className="section-title-icon">&#128203;</span> Conditions
+            </div>
+            <div className="stack stack-sm">
+              {rightConditions.map((c) => (
+                <div key={c.id} className={`compare-item${c.redacted ? " compare-redacted" : ""}`}>
+                  <span>{c.display}</span>
+                  {c.redacted && <span className="badge badge-amber" style={{ fontSize: 8, padding: "1px 5px" }}>Redacted</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Medications */}
+          <div className="compare-section">
+            <div className="section-title" style={{ fontSize: 10 }}>
+              <span className="section-title-icon">&#128138;</span> Medications
+            </div>
+            <div className="stack stack-sm">
+              {rightMeds.map((m, i) => (
+                <div key={i} className={`compare-item${m.redacted ? " compare-redacted" : ""}`}>
+                  <span>{m.display}</span>
+                  {m.redacted && <span className="badge badge-amber" style={{ fontSize: 8, padding: "1px 5px" }}>Redacted</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Key Differences */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128161;</span> What This Demonstrates
+        </div>
+        <div className="stack stack-md">
+          <div className="info-block">
+            <div className="info-block-title">Same patient, different clinical lenses</div>
+            <div className="info-block-desc">Each practitioner sees information tailored to their clinical role. The GP sees full mental health context for prescribing. The physio sees musculoskeletal focus with only clinically relevant medication effects.</div>
+          </div>
+          <div className="info-block">
+            <div className="info-block-title">Redaction preserves clinical utility</div>
+            <div className="info-block-desc">When a medication is redacted, the practitioner still sees its clinical relevance (&ldquo;may affect pain perception&rdquo;) without knowing the specific drug or diagnosis. Safety without exposure.</div>
+          </div>
+          <div className="info-block">
+            <div className="info-block-title">Try changing consent</div>
+            <div className="info-block-desc">Open the Patient Consent Settings panel (purple button at the top) and toggle permissions &mdash; then come back here to see the view change in real-time. This is the core demo: consent directly controls what each role sees.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/ScenarioTab.jsx ===
+import { useState } from "react";
+import { ROLES, ALLERGIES } from "../data";
+
+const STEPS = [
+  {
+    id: 1,
+    title: "The Situation",
+    narrative: "Maria arrives at physiotherapy with an acute back pain flare-up (8/10). She\u2019s in significant distress. Tom Dunn (physio) considers recommending her GP prescribe codeine for short-term pain relief.",
+    systemState: "waiting",
+    role: "physio",
+  },
+  {
+    id: 2,
+    title: "Allergy Flag \u2014 Always Shared",
+    narrative: "Before Tom can even finish his thought, the system displays a prominent allergy alert. Codeine is flagged as a moderate allergy \u2014 nausea and severe dizziness. This information is in the Always Shared tier and visible to ALL practitioners regardless of consent settings.",
+    systemState: "allergy_caught",
+    role: "physio",
+    highlight: "ALLERGY ALERT: Codeine \u2014 Nausea, severe dizziness (moderate severity)",
+    highlightType: "red",
+  },
+  {
+    id: 3,
+    title: "Medication Interaction \u2014 Redacted but Safe",
+    narrative: "Tom also sees that Maria is on a \u201Ccentrally-acting medication that may affect pain perception.\u201D He doesn\u2019t know it\u2019s sertraline (an SSRI) \u2014 but he doesn\u2019t need to. The system tells him what he needs: this medication affects how Maria perceives pain and could cause dizziness, making codeine even more dangerous.",
+    systemState: "interaction_shown",
+    role: "physio",
+    highlight: "Centrally-acting medication \u2014 may affect pain perception & appetite. Caution with additional CNS depressants.",
+    highlightType: "amber",
+  },
+  {
+    id: 4,
+    title: "Safe Outcome",
+    narrative: "Tom doesn\u2019t recommend codeine. Instead, he coordinates with Maria\u2019s GP through the system, noting the acute flare-up and requesting an alternative pain management approach. The GP, who has full medication visibility, can make a safe prescribing decision with full context.",
+    systemState: "resolved",
+    role: "gp",
+    highlight: "Coordination note sent to Dr. Sarah Liu: \u201CAcute flare-up, 8/10 pain. Codeine contraindicated (allergy). Current centrally-acting med noted. Requesting alternative short-term pain management.\u201D",
+    highlightType: "green",
+  },
+  {
+    id: 5,
+    title: "The Counterfactual",
+    narrative: "Without this system: Tom calls Maria\u2019s GP, but it\u2019s after hours. Maria mentions she\u2019s taken codeine before \u201Cwith just a bit of nausea.\u201D Tom has no allergy record, no medication list, no way to know about the SSRI interaction. A well-meaning physio, an unreliable patient history, and a dangerous drug interaction \u2014 this is how adverse events happen.",
+    systemState: "counterfactual",
+    role: null,
+  },
+];
+
+export default function ScenarioTab({ consent }) {
+  const [currentStep, setCurrentStep] = useState(0);
+  const step = STEPS[currentStep];
+
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--red-bg)", borderColor: "var(--red-border)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--red)", marginBottom: 6 }}>
+          Interactive Safety Scenario
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          Walk through a real clinical scenario where the shared summary prevents a dangerous adverse event &mdash; demonstrating that privacy controls and clinical safety aren&apos;t in conflict.
+        </p>
+      </div>
+
+      {/* Progress */}
+      <div className="card" style={{ padding: "16px 22px" }}>
+        <div className="scenario-progress">
+          {STEPS.map((s, i) => (
+            <button
+              key={s.id}
+              className={`scenario-step-dot${i === currentStep ? " active" : ""}${i < currentStep ? " done" : ""}`}
+              onClick={() => setCurrentStep(i)}
+            >
+              {i < currentStep ? "\u2713" : i + 1}
+            </button>
+          ))}
+          <div className="scenario-progress-line">
+            <div className="scenario-progress-fill" style={{ width: `${(currentStep / (STEPS.length - 1)) * 100}%` }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Current Step */}
+      <div className="card">
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+          {step.role && (
+            <span style={{ fontSize: 22 }}>{ROLES[step.role]?.icon}</span>
+          )}
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: 0.5 }}>
+              STEP {step.id} OF {STEPS.length}
+            </div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text)" }}>{step.title}</div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: 14, lineHeight: 1.75, color: "var(--text)", marginBottom: step.highlight ? 16 : 0 }}>
+          {step.narrative}
+        </p>
+
+        {step.highlight && (
+          <div
+            className="scenario-highlight"
+            style={{
+              background: step.highlightType === "red" ? "var(--red-bg)"
+                : step.highlightType === "amber" ? "var(--amber-bg)"
+                : "var(--green-bg)",
+              borderColor: step.highlightType === "red" ? "var(--red-border)"
+                : step.highlightType === "amber" ? "var(--amber-border)"
+                : "var(--green-border)",
+              borderLeftColor: step.highlightType === "red" ? "var(--red)"
+                : step.highlightType === "amber" ? "var(--amber)"
+                : "var(--green)",
+            }}
+          >
+            <div style={{
+              fontSize: 10, fontWeight: 700, fontFamily: "'JetBrains Mono', monospace",
+              letterSpacing: 0.5, marginBottom: 4,
+              color: step.highlightType === "red" ? "var(--red)"
+                : step.highlightType === "amber" ? "var(--amber)"
+                : "var(--green)",
+            }}>
+              {step.highlightType === "red" ? "SYSTEM ALERT" : step.highlightType === "amber" ? "SYSTEM NOTE" : "SYSTEM ACTION"}
+            </div>
+            <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--text)" }}>{step.highlight}</div>
+          </div>
+        )}
+
+        {step.systemState === "counterfactual" && (
+          <div style={{ marginTop: 16, padding: 16, borderRadius: 8, background: "#1A1D26", color: "#F3F4F6" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, fontFamily: "'JetBrains Mono', monospace", color: "#EF4444", marginBottom: 8, letterSpacing: 0.5 }}>
+              POTENTIAL ADVERSE EVENT
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <div style={{ fontSize: 12, display: "flex", gap: 8 }}>
+                <span style={{ color: "#EF4444" }}>&#10005;</span>
+                <span>Codeine prescribed despite moderate allergy</span>
+              </div>
+              <div style={{ fontSize: 12, display: "flex", gap: 8 }}>
+                <span style={{ color: "#EF4444" }}>&#10005;</span>
+                <span>Codeine + SSRI interaction: serotonin syndrome risk</span>
+              </div>
+              <div style={{ fontSize: 12, display: "flex", gap: 8 }}>
+                <span style={{ color: "#EF4444" }}>&#10005;</span>
+                <span>Patient self-reported history unreliable under pain</span>
+              </div>
+              <div style={{ fontSize: 12, display: "flex", gap: 8 }}>
+                <span style={{ color: "#EF4444" }}>&#10005;</span>
+                <span>No audit trail, no liability clarity</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
+        <button
+          className="btn btn-sm btn-ghost"
+          onClick={() => setCurrentStep((p) => Math.max(0, p - 1))}
+          disabled={currentStep === 0}
+        >
+          &larr; Previous
+        </button>
+        <button
+          className="btn btn-sm btn-accent"
+          onClick={() => setCurrentStep((p) => Math.min(STEPS.length - 1, p + 1))}
+          disabled={currentStep === STEPS.length - 1}
+        >
+          Next &rarr;
+        </button>
+      </div>
+
+      {/* Key Takeaways */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128161;</span> Key Takeaways
+        </div>
+        <div className="stack stack-md">
+          <div className="info-block" style={{ background: "var(--green-bg)", borderColor: "var(--green-border)" }}>
+            <div className="info-block-title" style={{ color: "var(--green)" }}>Privacy and safety are not in tension</div>
+            <div className="info-block-desc">The physio never learned Maria has anxiety or takes an SSRI. But the system still prevented the dangerous prescription. Redaction preserved clinical safety.</div>
+          </div>
+          <div className="info-block" style={{ background: "var(--green-bg)", borderColor: "var(--green-border)" }}>
+            <div className="info-block-title" style={{ color: "var(--green)" }}>Allergies are always shared for a reason</div>
+            <div className="info-block-desc">The three-tier model puts allergies in &ldquo;Always Shared&rdquo; because there is no clinical scenario where hiding an allergy protects the patient. This is the minimum necessary standard in action.</div>
+          </div>
+          <div className="info-block" style={{ background: "var(--green-bg)", borderColor: "var(--green-border)" }}>
+            <div className="info-block-title" style={{ color: "var(--green)" }}>The right abstraction level matters</div>
+            <div className="info-block-desc">&ldquo;Centrally-acting medication that may affect pain perception&rdquo; gives the physio exactly what they need without exposing the diagnosis. This is what HIPAA&apos;s minimum necessary standard looks like in software.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/PatientDashboard.jsx ===
+import {
+  ROLES, PATIENT, ALLERGIES,
+  getVisibleConditions, getVisibleMedications, getVisibleVisits, getVisiblePlans, getAISummary,
+} from "../data";
+
+const FULL_CONSENT = {
+  patient: { mental_health_detail: true, all_medications: true, session_content: false, substance_history: false },
+};
+
+export default function PatientDashboard({ consent }) {
+  const conditions = getVisibleConditions("patient", FULL_CONSENT);
+  const medications = getVisibleMedications("patient", FULL_CONSENT);
+  const visits = getVisibleVisits("patient", FULL_CONSENT);
+  const plans = getVisiblePlans("patient", FULL_CONSENT);
+  const summary = getAISummary("patient", consent);
+
+  const sharedCount = Object.values(consent).reduce(
+    (sum, c) => sum + Object.values(c).filter(Boolean).length, 0
+  );
+
+  return (
+    <div>
+      {/* Welcome Banner */}
+      <div className="patient-welcome">
+        <div className="patient-welcome-avatar">&#128100;</div>
+        <div>
+          <div className="patient-welcome-name">Welcome, {PATIENT.name.split(" ")[0]}</div>
+          <div className="patient-welcome-sub">
+            Your unified health view &mdash; {Object.keys(ROLES).length} providers coordinating your care
+          </div>
+        </div>
+        <div className="patient-welcome-stat">
+          <div className="patient-welcome-stat-value">{sharedCount}/16</div>
+          <div className="patient-welcome-stat-label">data points shared</div>
+        </div>
+      </div>
+
+      {/* Health Summary */}
+      <div className="card patient-summary-card">
+        <div className="ai-summary-header">
+          <div className="ai-summary-icon" style={{ background: "#FFF1F2", color: "#E11D48" }}>&#10022;</div>
+          <div style={{ flex: 1 }}>
+            <div className="ai-summary-label" style={{ color: "#E11D48" }}>Your Health Summary</div>
+            <div className="ai-summary-sublabel">Written in plain language from your health records</div>
+          </div>
+        </div>
+        <p className="ai-summary-text">{summary}</p>
+      </div>
+
+      {/* Your Care Team */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128101;</span> Your Care Team
+        </div>
+        <div className="patient-team-grid">
+          {Object.entries(ROLES).map(([key, r]) => (
+            <div key={key} className="patient-team-card" style={{ borderTopColor: r.color }}>
+              <span style={{ fontSize: 24 }}>{r.icon}</span>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)" }}>{r.label}</div>
+                <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{r.title}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Active Conditions */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128203;</span> Your Conditions
+        </div>
+        <div className="stack stack-sm">
+          {conditions.map((c) => (
+            <div key={c.id} className="row-item">
+              <div>
+                <div className="row-item-primary">{c.display}</div>
+                <div className="row-item-secondary">
+                  Managed by: {c.managedBy.split(",").map((r) => ROLES[r]?.label).join(", ")}
+                </div>
+              </div>
+              <span className={`badge ${c.severity === "moderate" ? "badge-amber" : "badge-green"}`}>
+                {c.severity}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Current Medications */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128138;</span> Your Medications
+        </div>
+        <div className="stack stack-sm">
+          {medications.map((m, i) => (
+            <div key={i} className="row-item">
+              <div>
+                <div className="row-item-primary">{m.display}</div>
+                <div className="row-item-secondary">
+                  {m.dose} &bull; Prescribed by {ROLES[m.prescriber]?.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Allergies */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128680;</span> Allergies & Contraindications
+          <span className="badge badge-green" style={{ marginLeft: "auto" }}>Shared with all providers</span>
+        </div>
+        <div className="allergy-grid">
+          {ALLERGIES.map((a, i) => (
+            <div key={i} className="allergy-item">
+              <div className="allergy-name">{a.allergen}</div>
+              <div className="allergy-reaction">{a.reaction}</div>
+              <span className="badge badge-red">{a.severity}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Your Goals */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#127919;</span> Your Goals
+        </div>
+        <p style={{ fontSize: 14, lineHeight: 1.75, fontStyle: "italic", color: "var(--text-sec)" }}>
+          &ldquo;{PATIENT.patientGoals}&rdquo;
+        </p>
+      </div>
+
+      {/* Recent Appointments */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128197;</span> Your Recent Appointments
+        </div>
+        <div className="stack stack-md">
+          {visits.map((v) => {
+            const vR = ROLES[v.provider];
+            return (
+              <div key={v.id} className="visit-card">
+                <div className="visit-header">
+                  <div className="visit-provider">
+                    <span className="visit-provider-icon">{vR.icon}</span>
+                    <div>
+                      <div className="visit-title">{v.title}</div>
+                      <div className="visit-meta">{v.providerName} &bull; {v.date}</div>
+                    </div>
+                  </div>
+                </div>
+                <p className="visit-body">{v.sharedSummary}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Care Plans */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128221;</span> Your Care Plans
+        </div>
+        <div className="stack stack-md">
+          {plans.map((tp, i) => {
+            const pR = ROLES[tp.provider];
+            return (
+              <div key={i} className="visit-card">
+                <div className="visit-header">
+                  <div className="visit-provider">
+                    <span className="visit-provider-icon">{pR.icon}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600 }}>{pR.label}</span>
+                  </div>
+                </div>
+                <p className="visit-body">{tp.sharedPlan}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/PatientConsent.jsx ===
+import { ROLES, CONSENT_LABELS, WHY_ITEMS } from "../data";
+
+export default function PatientConsent({ consent, onToggle }) {
+  const sharedCount = Object.values(consent).reduce(
+    (sum, c) => sum + Object.values(c).filter(Boolean).length, 0
+  );
+
+  return (
+    <div>
+      {/* Header */}
+      <div className="card" style={{ background: "#FFF1F2", borderColor: "#FDA4AF" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+          <span style={{ fontSize: 22 }}>&#128274;</span>
+          <div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#E11D48" }}>Your Privacy Settings</div>
+            <div style={{ fontSize: 13, color: "var(--text-sec)", lineHeight: 1.5 }}>
+              You control exactly what each of your providers can see. Changes take effect immediately across the system.
+            </div>
+          </div>
+        </div>
+        <div className="patient-consent-stats">
+          <div className="patient-consent-stat">
+            <span className="patient-consent-stat-value">{sharedCount}</span>
+            <span className="patient-consent-stat-label">of 16 shared</span>
+          </div>
+          <div className="patient-consent-stat-bar">
+            <div className="patient-consent-stat-fill" style={{ width: `${(sharedCount / 16) * 100}%` }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Per-Provider Controls */}
+      {Object.entries(ROLES).map(([rk, ri]) => (
+        <div key={rk} className="card patient-consent-provider">
+          <div className="consent-provider-header">
+            <span style={{ fontSize: 22 }}>{ri.icon}</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 14, fontWeight: 600 }}>{ri.label}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{ri.title}</div>
+            </div>
+            <div className="patient-consent-provider-count" style={{ color: ri.color, background: ri.bg }}>
+              {Object.values(consent[rk] || {}).filter(Boolean).length}/4
+            </div>
+          </div>
+          <div className="stack stack-sm">
+            {Object.entries(CONSENT_LABELS).map(([key, label]) => (
+              <div key={key} className="consent-row">
+                <div>
+                  <span className="consent-label">{label}</span>
+                </div>
+                <button
+                  className={`toggle ${consent[rk]?.[key] ? "on" : "off"}`}
+                  onClick={() => onToggle(rk, key)}
+                  aria-label={`Toggle ${label} for ${ri.label}`}
+                >
+                  <div className="toggle-knob" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {/* Why Patient Control Works */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128274;</span> Why Patient Control Works
+        </div>
+        <div className="stack stack-md">
+          {WHY_ITEMS.map((item, i) => (
+            <div key={i} className="info-block">
+              <div className="info-block-title">{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/TransparencyTab.jsx ===
+import {
+  ROLES, CONSENT_LABELS,
+  getVisibleConditions, getVisibleMedications, getAISummary,
+} from "../data";
+
+function VisibilityItem({ original, display, redacted }) {
+  return (
+    <div className={`transparency-item${redacted ? " transparency-redacted" : ""}`}>
+      {redacted ? (
+        <>
+          <span className="transparency-item-icon" style={{ color: "var(--amber)" }}>&#9679;</span>
+          <div>
+            <div className="transparency-item-sees">They see: <em>{display}</em></div>
+            <div className="transparency-item-actual">Actual: {original}</div>
+          </div>
+        </>
+      ) : (
+        <>
+          <span className="transparency-item-icon" style={{ color: "var(--green)" }}>&#9679;</span>
+          <span>{display}</span>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default function TransparencyTab({ consent }) {
+  return (
+    <div>
+      {/* Header */}
+      <div className="card" style={{ background: "#FFF1F2", borderColor: "#FDA4AF" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "#E11D48", marginBottom: 6 }}>
+          Who Sees What
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          See exactly what each of your providers can access based on your current privacy settings. Green items are fully visible; amber items are shown in a redacted form that protects your privacy while preserving clinical safety.
+        </p>
+      </div>
+
+      {/* Per-Provider Visibility */}
+      {Object.entries(ROLES).map(([rk, ri]) => {
+        const conditions = getVisibleConditions(rk, consent);
+        const medications = getVisibleMedications(rk, consent);
+        const aiSummary = getAISummary(rk, consent);
+        const grantedCount = Object.values(consent[rk] || {}).filter(Boolean).length;
+        const grantedLabels = Object.entries(consent[rk] || {})
+          .filter(([, v]) => v)
+          .map(([k]) => CONSENT_LABELS[k]);
+        const restrictedLabels = Object.entries(consent[rk] || {})
+          .filter(([, v]) => !v)
+          .map(([k]) => CONSENT_LABELS[k]);
+
+        return (
+          <div key={rk} className="card transparency-provider">
+            <div className="transparency-provider-header" style={{ borderLeftColor: ri.color }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1 }}>
+                <span style={{ fontSize: 24 }}>{ri.icon}</span>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: ri.color }}>{ri.label}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{ri.title}</div>
+                </div>
+              </div>
+              <div className="transparency-score" style={{ color: ri.color, background: ri.bg }}>
+                {grantedCount}/4 shared
+              </div>
+            </div>
+
+            {/* Consent summary */}
+            <div className="transparency-consent-summary">
+              {grantedLabels.length > 0 && (
+                <div className="transparency-consent-group">
+                  <span className="transparency-consent-dot" style={{ color: "var(--green)" }}>&#10003;</span>
+                  <span style={{ fontSize: 12, color: "var(--text-sec)" }}>
+                    {grantedLabels.join(" · ")}
+                  </span>
+                </div>
+              )}
+              {restrictedLabels.length > 0 && (
+                <div className="transparency-consent-group">
+                  <span className="transparency-consent-dot" style={{ color: "var(--amber)" }}>&#128274;</span>
+                  <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+                    {restrictedLabels.join(" · ")}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* AI Summary they see */}
+            <div className="transparency-section">
+              <div className="transparency-section-label">AI Summary they receive</div>
+              <p style={{ fontSize: 12.5, lineHeight: 1.65, color: "var(--text-sec)", margin: 0 }}>{aiSummary}</p>
+            </div>
+
+            {/* Conditions */}
+            <div className="transparency-section">
+              <div className="transparency-section-label">Conditions they see</div>
+              <div className="stack stack-sm">
+                {conditions.map((c) => (
+                  <VisibilityItem
+                    key={c.id}
+                    original={c.name}
+                    display={c.display}
+                    redacted={c.redacted}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Medications */}
+            <div className="transparency-section">
+              <div className="transparency-section-label">Medications they see</div>
+              <div className="stack stack-sm">
+                {medications.map((m, i) => (
+                  <VisibilityItem
+                    key={i}
+                    original={m.name}
+                    display={m.display}
+                    redacted={m.redacted}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+=== src/tabs/DataModelTab.jsx ===
+const TIERS = [
+  {
+    label: "Always Shared",
+    color: "var(--green)", bg: "var(--green-bg)", border: "var(--green-border)",
+    items: [
+      "Active conditions & diagnoses (non-sensitive)",
+      "Allergies & contraindications",
+      "Non-sensitive medications (name, dose, prescriber)",
+      "Patient-reported goals & preferences",
+      "Visit dates and provider names",
+      "AI-generated shared summaries (role-tailored)",
+    ],
+  },
+  {
+    label: "Conditionally Shared (Patient Consent)",
+    color: "var(--amber)", bg: "var(--amber-bg)", border: "var(--amber-border)",
+    items: [
+      "Specific psychiatric diagnoses \u2192 shown as category only without consent",
+      "Mental health medication names \u2192 shown as \u2018Centrally-acting medication\u2019 with relevance note",
+      "Substance use history \u2192 fully restricted without explicit consent",
+      "Interaction flags referencing sensitive medications \u2192 generalized language",
+    ],
+  },
+  {
+    label: "Never Shared (Treating Provider Only)",
+    color: "var(--red)", bg: "var(--red-bg)", border: "var(--red-border)",
+    items: [
+      "Detailed psychotherapy session content",
+      "Domestic violence / abuse documentation",
+      "Sexual health details",
+      "HIV / STI status",
+      "Raw assessment scores (PHQ-9, GAD-7) \u2014 only trend direction shared",
+      "Sensitive differential diagnosis notes",
+    ],
+  },
+];
+
+const AI_INSIGHTS = [
+  { title: "AI authors the summary, not practitioners", desc: "No provider \u2018writes\u2019 the shared summary. The system synthesizes from structured data \u2014 the summary is a system artifact, not a clinical note." },
+  { title: "Summaries are role-tailored, not universal", desc: "The physio sees MSK-relevant context. The dietitian sees metabolic context. Neither sees a \u2018complete\u2019 record \u2014 they see what helps them do their job safely." },
+  { title: "Original notes remain untouched", desc: "Practitioners write in their own style. The shared summary is a separate layer. No incentive to write defensively \u2014 your notes are still yours." },
+  { title: "No \u201Cchart wars\u201D", desc: "Practitioners see AI summaries, not each other\u2019s raw notes. No audience effect. A psychologist doesn\u2019t worry how a physio might interpret their clinical language." },
+];
+
+export default function DataModelTab() {
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--accent-light)", borderColor: "rgba(37,99,235,0.2)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--accent)", marginBottom: 6 }}>
+          Three-Tier Visibility Model
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          Every piece of clinical data falls into one of three tiers. The default is always the most restrictive. Patients grant access upward but never need to act to protect their data &mdash; safety is the default, not something requiring effort.
+        </p>
+      </div>
+
+      {TIERS.map((t, i) => (
+        <div key={i} className="card">
+          <div className="tier-header" style={{ background: t.bg, border: `1px solid ${t.border}` }}>
+            <div className="tier-dot" style={{ background: t.color }} />
+            <span className="tier-label" style={{ color: t.color }}>{t.label}</span>
+          </div>
+          <div className="stack stack-sm">
+            {t.items.map((item, j) => (
+              <div key={j} className="tier-item">
+                <span className="tier-item-dot" style={{ color: t.color }}>&#9679;</span>
+                <span className="tier-item-text">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#10022;</span> How AI Summaries Prevent Liability Creep
+        </div>
+        <div className="stack stack-md">
+          {AI_INSIGHTS.map((item, i) => (
+            <div key={i} className="info-block">
+              <div className="info-block-title">{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/AuditTab.jsx ===
+import { useState } from "react";
+import { ROLES, AUDIT_LOG } from "../data";
+
+const ACTION_STYLES = {
+  viewed: { color: "var(--accent)", bg: "var(--accent-light)", label: "Viewed" },
+  confirmed: { color: "var(--green)", bg: "var(--green-bg)", label: "Confirmed" },
+  flagged: { color: "var(--amber)", bg: "var(--amber-bg)", label: "Flagged" },
+  consent_changed: { color: "var(--purple)", bg: "var(--purple-bg)", label: "Consent Changed" },
+  regenerated: { color: "var(--teal)", bg: "var(--teal-bg)", label: "Regenerated" },
+  emergency_override: { color: "var(--red)", bg: "var(--red-bg)", label: "Emergency Override" },
+  notification: { color: "var(--text-muted)", bg: "var(--surface-alt)", label: "Notification" },
+};
+
+const ROLE_ICONS = {
+  gp: "\u{1FA7A}",
+  physio: "\u{1F9B4}",
+  psych: "\u{1F9E0}",
+  dietitian: "\u{1F957}",
+  patient: "\u{1F464}",
+  system: "\u2699\uFE0F",
+};
+
+const FILTERS = ["all", "viewed", "confirmed", "flagged", "consent_changed", "emergency_override"];
+
+export default function AuditTab() {
+  const [filter, setFilter] = useState("all");
+
+  const filtered = filter === "all"
+    ? AUDIT_LOG
+    : AUDIT_LOG.filter((e) => e.action === filter);
+
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--surface-alt)", borderColor: "var(--border)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>
+          Audit Trail
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7, color: "var(--text-sec)" }}>
+          Every view, consent change, flag, and emergency override is logged with timestamp and identity. This creates unambiguous legal clarity: who knew what, when, and why.
+        </p>
+      </div>
+
+      {/* Stats */}
+      <div className="audit-stats-grid">
+        <div className="audit-stat">
+          <div className="audit-stat-value">12</div>
+          <div className="audit-stat-label">Total Events</div>
+        </div>
+        <div className="audit-stat">
+          <div className="audit-stat-value" style={{ color: "var(--green)" }}>2</div>
+          <div className="audit-stat-label">Confirmed Accurate</div>
+        </div>
+        <div className="audit-stat">
+          <div className="audit-stat-value" style={{ color: "var(--amber)" }}>1</div>
+          <div className="audit-stat-label">Flags Raised</div>
+        </div>
+        <div className="audit-stat">
+          <div className="audit-stat-value" style={{ color: "var(--red)" }}>1</div>
+          <div className="audit-stat-label">Emergency Overrides</div>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="card" style={{ padding: "12px 22px" }}>
+        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              className={`btn btn-sm ${filter === f ? "btn-accent" : "btn-ghost"}`}
+              onClick={() => setFilter(f)}
+            >
+              {f === "all" ? "All Events" : ACTION_STYLES[f]?.label || f}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Log Entries */}
+      <div className="card">
+        <div className="stack stack-sm">
+          {filtered.map((entry) => {
+            const style = ACTION_STYLES[entry.action] || ACTION_STYLES.notification;
+            return (
+              <div key={entry.id} className="audit-entry">
+                <div className="audit-entry-left">
+                  <div className="audit-entry-icon">{ROLE_ICONS[entry.actorRole] || "\u2699\uFE0F"}</div>
+                  <div className="audit-entry-time">{entry.timestamp}</div>
+                </div>
+                <div className="audit-entry-content">
+                  <div className="audit-entry-header">
+                    <span style={{ fontWeight: 600, color: "var(--text)" }}>{entry.actor}</span>
+                    <span
+                      className="badge"
+                      style={{ color: style.color, background: style.bg, border: `1px solid ${style.color}20`, fontSize: 9 }}
+                    >
+                      {style.label}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-sec)", marginTop: 2 }}>
+                    {entry.target} &mdash; {entry.detail}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Why This Matters */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128161;</span> Why Audit Trails Create Legal Clarity
+        </div>
+        <div className="stack stack-md">
+          <div className="info-block">
+            <div className="info-block-title">Resolves &ldquo;should have known&rdquo; disputes</div>
+            <div className="info-block-desc">If a practitioner didn&apos;t see information because the patient restricted it, the audit trail proves the consent boundary. No ambiguity, no liability.</div>
+          </div>
+          <div className="info-block">
+            <div className="info-block-title">Emergency overrides are documented, not hidden</div>
+            <div className="info-block-desc">When a practitioner breaks glass for emergency access, the system records the reason, notifies the patient, and flags it for governance review. Transparency protects everyone.</div>
+          </div>
+          <div className="info-block">
+            <div className="info-block-title">AI accuracy is continuously tracked</div>
+            <div className="info-block-desc">Every confirmation and flag feeds into quality metrics. The system can prove its accuracy rate at any point in time &mdash; critical for regulatory compliance and malpractice defense.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/RegulatoryTab.jsx ===
+const HIPAA_ITEMS = [
+  {
+    title: "Role-based views automate minimum necessary",
+    desc: "Rather than relying on practitioners to decide what is \u201Cminimum necessary\u201D per-request \u2014 which HIPAA acknowledges is impractical \u2014 the system automates it. A physio view is pre-filtered to MSK-relevant information. The architecture enforces the standard.",
+  },
+  {
+    title: "Sensitive medications at the right abstraction level",
+    desc: "When the physio sees \u201CCentrally-acting medication \u2014 may affect pain perception,\u201D this is minimum necessary in practice. They get the clinical effect without the diagnosis or drug name.",
+  },
+  {
+    title: "Treatment exception preserved",
+    desc: "HIPAA exempts treatment-purpose disclosures. When Maria grants her GP full mental health access for medication coordination, that mirrors HIPAA\u2019s treatment exception \u2014 the GP needs full context to prescribe safely.",
+  },
+];
+
+const INTL_ITEMS = [
+  { title: "Purpose limitation (GDPR Article 5)", desc: "Each practitioner\u2019s view is scoped to their clinical purpose. The dietitian doesn\u2019t see psychology notes because nutrition management doesn\u2019t require them." },
+  { title: "Data minimization by design", desc: "The AI summary layer is itself a data minimization tool \u2014 synthesizing minimum clinically relevant information per role rather than exposing raw notes." },
+  { title: "Dynamic consent (emerging best practice)", desc: "Research on My Health Record failures recommended dynamic consent \u2014 interactive, granular, revocable. Capsule\u2019s consent portal implements exactly this." },
+];
+
+export default function RegulatoryTab() {
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--indigo-bg)", borderColor: "var(--indigo-border)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--indigo)", marginBottom: 6 }}>
+          Regulatory Grounding
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          Every major design decision maps to established regulatory principles and lessons from real-world health information sharing systems &mdash; including where those systems failed.
+        </p>
+      </div>
+
+      {/* My Health Record */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#127462;&#127482;</span> Lesson from Australia&apos;s My Health Record
+        </div>
+        <div className="insight-block">
+          <div className="insight-problem">
+            <div className="insight-label" style={{ color: "var(--red)" }}>What went wrong</div>
+            <p className="insight-text">
+              Australia&apos;s national health record started as opt-in, but after spending billions, fewer than 25% enrolled. The government switched to opt-out in 2018, automatically enrolling everyone &mdash; sparking a major privacy backlash. Citizens found opting out difficult and sometimes paradoxical. The core failure: the system was designed around government data needs, not patient trust. Recent 2025 legislation has continued pushing toward mandatory sharing with civil penalties for providers who don&apos;t upload.
+            </p>
+          </div>
+          <div className="insight-solution">
+            <div className="insight-label" style={{ color: "var(--green)" }}>How Capsule avoids this</div>
+            <p className="insight-text">
+              Our system uses &ldquo;safe by default, open by choice&rdquo; &mdash; the opposite approach. The shared summary exists within a single clinic, not a centralized government database. Patients don&apos;t need to act to be protected; they only act to share more. Consent is granular and revocable, not binary. The lesson: if you make sharing feel safe, people share. If you make it feel forced, they revolt.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* HIPAA */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#127482;&#127480;</span> HIPAA Minimum Necessary Standard &mdash; Embedded in Architecture
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7, marginBottom: 14 }}>
+          HIPAA&apos;s Privacy Rule requires covered entities to limit PHI disclosure to the minimum necessary to accomplish the intended purpose. This principle is the foundation of Capsule&apos;s role-based views.
+        </p>
+        <div className="stack stack-md">
+          {HIPAA_ITEMS.map((item, i) => (
+            <div key={i} className="info-block" style={{ background: "var(--accent-light)", borderColor: "rgba(37,99,235,0.15)" }}>
+              <div className="info-block-title" style={{ color: "var(--accent)" }}>{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* International */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#127760;</span> International Design Principles
+        </div>
+        <div className="stack stack-md">
+          {INTL_ITEMS.map((item, i) => (
+            <div key={i} className="info-block">
+              <div className="info-block-title">{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/QualityTab.jsx ===
+const METRICS = [
+  {
+    cat: "Care Coordination", icon: "\u{1F517}",
+    items: [
+      { m: "Redundant intake time eliminated", base: "~10 min per new-to-provider visit", target: "< 2 min (pre-populated)", how: "Timestamp: visit start to first clinical action, before vs. after summary access" },
+      { m: "Contradictory treatment plans flagged", base: "0 (no cross-provider visibility)", target: "100% auto-detection", how: "AI summary includes contradiction alerts when treatment plans conflict" },
+      { m: "Medication interaction alerts surfaced", base: "Only within single prescriber", target: "Cross-provider interactions flagged", how: "Full medication list compared against interaction databases regardless of visibility tier" },
+    ],
+  },
+  {
+    cat: "Documentation Quality", icon: "\u{1F4C4}",
+    items: [
+      { m: "Average note length (CYA proxy)", base: "Measure at launch", target: "No increase over 6 months", how: "Length increase after launch suggests defensive writing \u2014 trigger investigation" },
+      { m: "Defensive language frequency", base: "NLP baseline of hedging markers", target: "No increase", how: "NLP scan for \u201Cper patient report,\u201D \u201Cpatient was advised,\u201D etc. \u2014 increase signals CYA behavior" },
+      { m: "AI summary accuracy (flag rate)", base: "N/A", target: "< 5% flagged for correction", how: "One-click practitioner flags. High rate = AI quality issue; low rate = trust building" },
+    ],
+  },
+  {
+    cat: "Patient Experience", icon: "\u{1F464}",
+    items: [
+      { m: "\u201CRepeat my history\u201D conversations eliminated", base: "Survey: % requiring full retelling", target: "< 10% of visits", how: "Post-visit survey: \u201CDid you have to repeat information your provider should have known?\u201D" },
+      { m: "Consent portal engagement", base: "N/A", target: "> 60% review settings in month 1", how: "Track logins. Low engagement = defaults working OR awareness gap \u2014 distinguish via survey" },
+      { m: "Perceived care continuity", base: "Pre-launch survey", target: "20%+ improvement", how: "Quarterly survey: \u201Cmy providers communicate well\u201D score" },
+    ],
+  },
+];
+
+const FEEDBACK_ITEMS = [
+  { title: "Monthly team dashboards, not quarterly reports", desc: "Every practitioner sees how the summary affects their patients\u2019 coordination, documentation patterns, and satisfaction. The people doing the work see the impact." },
+  { title: "Anomaly triggers, not annual reviews", desc: "If defensive documentation markers increase for a provider, the system flags it immediately. Early detection prevents cultural drift." },
+  { title: "AI quality is self-improving", desc: "Every flag becomes training signal. The system tracks which information types are most flagged and prioritizes accuracy where it matters most." },
+];
+
+export default function QualityTab() {
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--teal-bg)", borderColor: "var(--teal-border)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--teal)", marginBottom: 6 }}>
+          Quality Metrics Framework
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          A system that can&apos;t prove it improves care is just a feature, not an intervention. Every metric here is designed to be actionable at the practitioner level, not just reportable to administrators.
+        </p>
+      </div>
+
+      {METRICS.map((g, i) => (
+        <div key={i} className="card">
+          <div className="section-title">
+            <span className="section-title-icon">{g.icon}</span> {g.cat}
+          </div>
+          <div className="stack stack-md">
+            {g.items.map((item, j) => (
+              <div key={j} className="metric-card">
+                <div className="metric-name">{item.m}</div>
+                <div className="metric-grid">
+                  <div className="metric-value" style={{ background: "var(--red-bg)", border: "1px solid var(--red-border)" }}>
+                    <div className="metric-value-label" style={{ color: "var(--red)" }}>Baseline</div>
+                    <div className="metric-value-text">{item.base}</div>
+                  </div>
+                  <div className="metric-value" style={{ background: "var(--green-bg)", border: "1px solid var(--green-border)" }}>
+                    <div className="metric-value-label" style={{ color: "var(--green)" }}>Target</div>
+                    <div className="metric-value-text">{item.target}</div>
+                  </div>
+                </div>
+                <div className="metric-how">
+                  <span className="metric-how-label">Measurement: </span>
+                  {item.how}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128260;</span> Closing the Feedback Loop
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7, marginBottom: 14 }}>
+          Collecting metrics without closing the loop is the most common quality program failure:
+        </p>
+        <div className="stack stack-md">
+          {FEEDBACK_ITEMS.map((item, i) => (
+            <div key={i} className="info-block" style={{ background: "var(--teal-bg)", borderColor: "var(--teal-border)" }}>
+              <div className="info-block-title" style={{ color: "var(--teal)" }}>{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/SafetyTab.jsx ===
+const PIPELINE_STEPS = [
+  { n: "1", t: "Structured input, not free-text parsing", d: "Summaries from structured data (diagnoses, medications, visit metadata) \u2014 not free-text notes. Dramatically reduces hallucination. Free-text notes never fed to the AI." },
+  { n: "2", t: "Every claim traceable to source", d: "\u201CPain improving (5/10, down from 7/10)\u201D traces to the exact visit record. No orphan claims \u2014 nothing exists without a source." },
+  { n: "3", t: "Confidence thresholds with human fallback", d: "Below-threshold confidence flags that section with \u201CVerify with treating provider\u201D rather than presenting uncertainty as fact." },
+  { n: "4", t: "Practitioner feedback loop", d: "One-click flag on every summary. Flagged summaries regenerated, error patterns logged. Practitioners see the system responds to corrections." },
+];
+
+const LIABILITY_ITEMS = [
+  { title: "AI summary = system artifact, not clinical document", desc: "No practitioner authors the summary. It\u2019s decision-support \u2014 analogous to a drug interaction alert. It informs; it doesn\u2019t replace clinical judgment." },
+  { title: "\u201CSaw it vs. Should have seen it\u201D", desc: "Sees info and ignores it \u2192 existing clinical liability. Doesn\u2019t see it because patient restricted it \u2192 consent provides legal protection. Clear, auditable boundaries." },
+  { title: "Full audit trail", desc: "Every view, consent change, and flag logged with timestamp and identity. Unambiguous answer to who knew what and when." },
+];
+
+const PHASES = [
+  { phase: "Week 1\u20132", title: "Shadow Mode", desc: "AI summaries generated but only visible to pilot group. No workflow changes. Goal: validate accuracy.", color: "var(--amber)" },
+  { phase: "Week 3\u20134", title: "Read-Only", desc: "Summaries visible to all as supplementary info. Labeled \u2018informational only.\u2019 Flag buttons prominent. Goal: build trust.", color: "var(--teal)" },
+  { phase: "Month 2", title: "Integrated", desc: "Summaries in standard workflow before encounters. Patient consent live. Quality metrics tracking begins.", color: "var(--green)" },
+  { phase: "Month 3+", title: "Full Operation", desc: "All guardrails active. Monthly quality reviews. Quarterly accuracy audits. System earns its place through data.", color: "var(--accent)" },
+];
+
+export default function SafetyTab() {
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--amber-bg)", borderColor: "var(--amber-border)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--amber)", marginBottom: 6 }}>
+          AI Safety Guardrails
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7 }}>
+          The biggest gap in healthcare AI isn&apos;t technical capability &mdash; it&apos;s organizational readiness. These guardrails are designed for real clinical practice, not demo environments.
+        </p>
+      </div>
+
+      {/* Validation Pipeline */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128269;</span> AI Summary Validation Pipeline
+        </div>
+        <div className="stack stack-md">
+          {PIPELINE_STEPS.map((s, i) => (
+            <div key={i} className="pipeline-step">
+              <div className="pipeline-step-header">
+                <div className="pipeline-step-number">{s.n}</div>
+                <div className="pipeline-step-title">{s.t}</div>
+              </div>
+              <p className="pipeline-step-desc">{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Liability */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#9878;&#65039;</span> Liability Model
+        </div>
+        <div className="stack stack-md">
+          {LIABILITY_ITEMS.map((item, i) => (
+            <div key={i} className="info-block" style={{ background: "var(--amber-bg)", borderColor: "var(--amber-border)" }}>
+              <div className="info-block-title" style={{ color: "var(--amber)" }}>{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Phased Adoption */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128678;</span> Phased Adoption
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7, marginBottom: 14 }}>
+          The #1 healthcare AI failure: launching capable systems without workflow integration. This phased approach prevents that.
+        </p>
+        <div className="stack stack-md">
+          {PHASES.map((p, i) => (
+            <div key={i} className="phase-item">
+              <div className="phase-badge" style={{ background: `color-mix(in srgb, ${p.color} 12%, transparent)`, border: `1px solid color-mix(in srgb, ${p.color} 20%, transparent)` }}>
+                <div className="phase-badge-label" style={{ color: p.color }}>{p.phase}</div>
+              </div>
+              <div>
+                <div className="phase-title">{p.title}</div>
+                <div className="phase-desc">{p.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+=== src/tabs/RationaleTab.jsx ===
+const STAKEHOLDERS = [
+  {
+    title: "\u{1FA7A} Providers: reduced charting burden",
+    desc: "The AI summary eliminates the most repetitive part of documentation \u2014 reconstructing context from other providers. Instead of spending the first 10 minutes asking Maria to retell her history, the provider opens a pre-populated summary and goes straight to clinical work.",
+    color: "var(--accent)", bg: "var(--accent-light)", border: "rgba(37,99,235,0.15)",
+  },
+  {
+    title: "\u{1F464} Patients: one place to see their full health picture",
+    desc: "Maria has visibility into her own shared record. She can see what each provider knows, control what\u2019s shared, and stop being the human message relay.",
+    color: "var(--purple)", bg: "var(--purple-bg)", border: "var(--purple-border)",
+  },
+  {
+    title: "\u23F1\uFE0F Operations: reduced wait times and intake friction",
+    desc: "Pre-populated context collapses check-in and intake workflows. Across a 20-patient day, this recovers 30\u201360 minutes per provider \u2014 time that translates directly into capacity and revenue.",
+    color: "var(--teal)", bg: "var(--teal-bg)", border: "var(--teal-border)",
+  },
+  {
+    title: "\u{1F3E5} Clinic leadership: better outcomes, lower risk",
+    desc: "Cross-provider coordination reduces missed interactions, contradictory treatments, and duplicated care. The audit trail provides compliance documentation automatically.",
+    color: "var(--green)", bg: "var(--green-bg)", border: "var(--green-border)",
+  },
+];
+
+const SCALE_ITEMS = [
+  { title: "More practitioners", desc: "Visibility model handles N providers. Adding a specialty requires defining their default visibility tier." },
+  { title: "More clinics", desc: "Same model across boundaries. Cross-clinic sharing adds organizational consent layer; architecture stays identical." },
+  { title: "More conditions", desc: "Each condition tagged with sensitivity category. Three-tier model auto-applies. No manual config needed." },
+];
+
+export default function RationaleTab() {
+  return (
+    <div>
+      <div className="card" style={{ background: "var(--accent-light)", borderColor: "rgba(37,99,235,0.2)" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--accent)", marginBottom: 6 }}>
+          Design Rationale
+        </div>
+        <p style={{ fontSize: 14, lineHeight: 1.75 }}>
+          This system was designed around one principle: <strong>the shared Patient Summary should make care coordination effortless without making any practitioner&apos;s life harder or riskier.</strong>
+        </p>
+      </div>
+
+      {/* Core Problem */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#10067;</span> The Core Problem
+        </div>
+        <p style={{ fontSize: 14, lineHeight: 1.75, marginBottom: 12 }}>
+          In a multidisciplinary clinic, the patient is the information bridge. Maria tells her physio about medications, reminds her dietitian about back pain limitations, and explains anxiety to her GP. This is inefficient, error-prone, and burdens the sickest patients most.
+        </p>
+        <p style={{ fontSize: 14, lineHeight: 1.75 }}>
+          But &ldquo;just share all notes&rdquo; creates three problems: sensitive information exposure, liability expansion, and defensive documentation. This system addresses all three.
+        </p>
+      </div>
+
+      {/* Insight: Accreditation */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#127973;</span> Insight: Healthcare Accreditation
+        </div>
+        <div className="insight-block">
+          <div className="insight-problem">
+            <div className="insight-label" style={{ color: "var(--purple)" }}>Observation</div>
+            <p className="insight-text">
+              Working on JCI accreditation for a cancer hospital, I saw a recurring pattern: <strong>when auditors arrived, teams scrambled to retrofit documentation rather than having it ready.</strong> Notes were written to pass inspections, not to coordinate care.
+            </p>
+          </div>
+          <div className="insight-solution">
+            <div className="insight-label" style={{ color: "var(--green)" }}>Design principle</div>
+            <p className="insight-text">
+              The shared summary must be generated from data practitioners already create for their own clinical purposes &mdash; not as a separate task. The AI synthesizes from existing structured data: the summary is a byproduct of normal practice, not an additional burden.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Insight: Quality Measurement */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128202;</span> Insight: Quality Measurement
+        </div>
+        <div className="insight-block">
+          <div className="insight-problem">
+            <div className="insight-label" style={{ color: "var(--purple)" }}>Observation</div>
+            <p className="insight-text">
+              Analyzing quality programs for aging populations, I observed the most common failure: <strong>data was reported upward to regulators and leadership, but never flowed back to the people doing the work.</strong>
+            </p>
+          </div>
+          <div className="insight-solution">
+            <div className="insight-label" style={{ color: "var(--green)" }}>Design principle</div>
+            <p className="insight-text">
+              Every quality metric has a practitioner-facing feedback mechanism, not just upward reporting. Monthly dashboards show each provider how the summary affects their patients. Data exists to change behavior closest to the patient.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Insight: AI Strategy */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#129302;</span> Insight: Healthcare AI Strategy
+        </div>
+        <div className="insight-block">
+          <div className="insight-problem">
+            <div className="insight-label" style={{ color: "var(--purple)" }}>Observation</div>
+            <p className="insight-text">
+              Working on agentic AI strategy for a large health insurer, I observed the pattern that kills most healthcare AI: <strong>leadership excitement without workflow integration planning.</strong> Capable systems nobody uses.
+            </p>
+          </div>
+          <div className="insight-solution">
+            <div className="insight-label" style={{ color: "var(--green)" }}>Design principle</div>
+            <p className="insight-text">
+              The phased adoption plan is the core implementation strategy. Shadow Mode lets AI prove itself before anyone depends on it. Every phase has success criteria. The system earns its place rather than being imposed.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* CYA */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128737;&#65039;</span> How This Avoids CYA Note Inflation
+        </div>
+        <div className="cya-grid">
+          <div className="cya-item" style={{ background: "var(--red-bg)", border: "1px solid var(--red-border)" }}>
+            <div className="cya-label" style={{ color: "var(--red)" }}>Without this system</div>
+            <p className="cya-text" style={{ color: "var(--text)" }}>
+              &ldquo;If other providers read my notes, I need to be careful. I&apos;ll add disclaimers. Notes become legal artifacts. Length increases 40&ndash;60%, clinical utility decreases.&rdquo;
+            </p>
+          </div>
+          <div className="cya-item" style={{ background: "var(--green-bg)", border: "1px solid var(--green-border)" }}>
+            <div className="cya-label" style={{ color: "var(--green)" }}>With this system</div>
+            <p className="cya-text" style={{ color: "var(--text)" }}>
+              &ldquo;My notes are still mine. Others see an AI summary, not my words. I write for clinical accuracy. The shared layer is the system&apos;s responsibility.&rdquo;
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Stakeholders */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128161;</span> Why Every Stakeholder Wants This
+        </div>
+        <p style={{ fontSize: 13.5, lineHeight: 1.7, marginBottom: 14 }}>
+          A system only gets adopted if every stakeholder sees direct value:
+        </p>
+        <div className="stack stack-md">
+          {STAKEHOLDERS.map((item, i) => (
+            <div key={i} className="info-block" style={{ background: item.bg, borderColor: item.border }}>
+              <div className="info-block-title" style={{ color: item.color }}>{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scale */}
+      <div className="card">
+        <div className="section-title">
+          <span className="section-title-icon">&#128260;</span> How This Scales
+        </div>
+        <div className="stack stack-sm">
+          {SCALE_ITEMS.map((item, i) => (
+            <div key={i} className="info-block">
+              <div className="info-block-title">{item.title}</div>
+              <div className="info-block-desc">{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

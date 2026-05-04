@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capsule — Live Demo Script</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #F8F9FC;
+      color: #111827;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6B7280;
+      margin-bottom: 40px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #E5E7EB;
+    }
+
+    .section-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.2px;
+    }
+
+    .time-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: #2563EB;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .action {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #7C3AED;
+      background: #F5F3FF;
+      border: 1px solid #DDD6FE;
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin: 12px 0;
+      line-height: 1.5;
+    }
+
+    .dialogue {
+      font-size: 15px;
+      color: #1F2937;
+      line-height: 1.8;
+      margin: 8px 0;
+      padding-left: 16px;
+      border-left: 3px solid #D1D5DB;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #E5E7EB;
+      margin: 32px 0;
+    }
+
+    .notes {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+
+    .notes h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #D97706;
+      margin-bottom: 12px;
+    }
+
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes li {
+      font-size: 13px;
+      color: #4B5563;
+      line-height: 1.7;
+      padding: 6px 0;
+      border-bottom: 1px solid #FEF3C7;
+    }
+
+    .notes li:last-child {
+      border-bottom: none;
+    }
+
+    .notes strong {
+      color: #92400E;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { padding: 24px; max-width: 100%; }
+      .section { break-inside: avoid; }
+      .action { background: #f9f9f9; border-color: #ccc; color: #555; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Capsule — Live Demo Script</h1>
+    <p class="subtitle">Total time: ~5-6 minutes</p>
+
+    <!-- INTRO -->
+    <div class="section">
+      <div class="section-header">
+        <h2>INTRO</h2>
+        <span class="time-badge">15 sec</span>
+      </div>
+      <p class="dialogue">"This is Capsule — a shared patient summary for multidisciplinary clinics. The core challenge: how do you coordinate care across providers without exposing sensitive patient data or creating liability? I'll walk through the system from three perspectives: the provider, the patient, and the architecture underneath."</p>
+    </div>
+
+    <hr>
+
+    <!-- PROVIDER VIEW -->
+    <div class="section">
+      <div class="section-header">
+        <h2>PROVIDER VIEW — Patient Summary</h2>
+        <span class="time-badge">60 sec</span>
+      </div>
+
+      <span class="action">Start on Provider View, GP selected, Patient Summary tab</span>
+
+      <p class="dialogue">"We're looking at Dr. Sarah Liu's view — Maria Chen's GP. The system generates an AI summary tailored to this role. It mentions Maria's anxiety and sertraline because Maria has granted her GP access to mental health details — that's a consent decision, not a default."</p>
+
+      <span class="action">Point to the consent indicator banner at top</span>
+
+      <p class="dialogue">"This banner tells the GP what Maria has shared with them — 2 of 4 categories. The GP doesn't control this. Maria does."</p>
+
+      <span class="action">Scroll to medications — point to Meloxicam interaction flag</span>
+
+      <p class="dialogue">"Medication interaction flags surface cross-provider risks. This NSAID + pre-diabetes warning comes from connecting data across the GP and dietitian."</p>
+
+      <span class="action">Scroll to AI Feedback buttons</span>
+
+      <p class="dialogue">"Every AI summary has a feedback loop. Practitioners can confirm accuracy or flag errors. This feeds into a quality dashboard — 97.2% accuracy across 338 reviews this month. The system improves from use."</p>
+    </div>
+
+    <hr>
+
+    <!-- SWITCHING ROLES -->
+    <div class="section">
+      <div class="section-header">
+        <h2>SWITCHING ROLES</h2>
+        <span class="time-badge">45 sec</span>
+      </div>
+
+      <span class="action">Click Physio role button</span>
+
+      <p class="dialogue">"Now watch what happens when we switch to Tom Dunn, the physiotherapist."</p>
+
+      <span class="action">Point to AI summary change</span>
+
+      <p class="dialogue">"The summary is completely different. It's musculoskeletal-focused. And notice — it doesn't mention anxiety or sertraline. Instead it says 'a centrally-acting medication that may affect pain perception.' Maria hasn't shared mental health details with her physio."</p>
+
+      <span class="action">Scroll to medications — point to redacted Sertraline</span>
+
+      <p class="dialogue">"Sertraline shows as 'Centrally-acting medication' with a 'Why relevant?' button. The physio gets exactly what they need — this drug might cause dizziness during exercises — without knowing the diagnosis or the drug name. That's HIPAA's minimum necessary standard, implemented in software."</p>
+    </div>
+
+    <hr>
+
+    <!-- COMPARE VIEWS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>COMPARE VIEWS</h2>
+        <span class="time-badge">30 sec</span>
+      </div>
+
+      <span class="action">Click Compare Views tab</span>
+
+      <p class="dialogue">"The Compare Views tab makes this concrete. GP on the left, physio on the right. Same patient, completely different clinical lenses. The 'Different' badge on the AI summary shows these aren't copies — they're role-tailored. Toggle consent in the patient portal and these views update in real-time."</p>
+    </div>
+
+    <hr>
+
+    <!-- SAFETY SCENARIO -->
+    <div class="section">
+      <div class="section-header">
+        <h2>SAFETY SCENARIO</h2>
+        <span class="time-badge">45 sec</span>
+      </div>
+
+      <span class="action">Click Safety Scenario tab</span>
+
+      <p class="dialogue">"Here's why this matters clinically."</p>
+
+      <span class="action">Click through steps 1-2</span>
+
+      <p class="dialogue">"Maria arrives at physio with 8/10 pain. Tom considers recommending codeine. But the system immediately flags a codeine allergy — this is in the 'Always Shared' tier. Allergies are never redactable because there's no scenario where hiding an allergy protects the patient."</p>
+
+      <span class="action">Click step 3</span>
+
+      <p class="dialogue">"The system also flags the centrally-acting medication interaction. Tom doesn't know it's an SSRI, but he knows codeine plus this drug is dangerous."</p>
+
+      <span class="action">Click step 4</span>
+
+      <p class="dialogue">"Instead of a dangerous prescription, Tom sends a coordination note to the GP. Safe outcome."</p>
+
+      <span class="action">Click step 5</span>
+
+      <p class="dialogue">"And here's the counterfactual — without this system: after-hours, unreliable patient self-report, codeine prescribed despite allergy and SSRI interaction risk. This is how adverse events actually happen."</p>
+    </div>
+
+    <hr>
+
+    <!-- PATIENT PORTAL — My Health -->
+    <div class="section">
+      <div class="section-header">
+        <h2>PATIENT PORTAL — My Health</h2>
+        <span class="time-badge">30 sec</span>
+      </div>
+
+      <span class="action">Click Patient Portal mode</span>
+
+      <p class="dialogue">"Now let's flip to what Maria sees. This is a completely separate product surface — different tone, plain language, no clinical jargon."</p>
+
+      <span class="action">Point to welcome banner and care team grid</span>
+
+      <p class="dialogue">"She sees her full care team, her unified health summary, all her conditions and medications — everything. The patient always has full visibility into their own record."</p>
+    </div>
+
+    <hr>
+
+    <!-- PATIENT PORTAL — My Privacy Settings -->
+    <div class="section">
+      <div class="section-header">
+        <h2>PATIENT PORTAL — My Privacy Settings</h2>
+        <span class="time-badge">45 sec</span>
+      </div>
+
+      <span class="action">Click My Privacy Settings tab</span>
+
+      <p class="dialogue">"This is where consent lives. Maria controls four categories for each of her four providers. Right now she's shared mental health details with her GP and psychologist, but not her physio or dietitian."</p>
+
+      <span class="action">Toggle ON physio → all_medications</span>
+
+      <p class="dialogue">"Watch — I'll let the physio see all medication names."</p>
+
+      <span class="action">Switch back to Provider View → Physio → Patient Summary</span>
+
+      <p class="dialogue">"Now Sertraline appears by name instead of 'centrally-acting medication.' That toggle Maria just flipped changed what the physio's AI summary says, what medications are visible, everything. Real-time, granular, revocable."</p>
+
+      <span class="action">Switch back to Patient Portal → toggle it OFF again</span>
+
+      <p class="dialogue">"And she can revoke it just as easily. Previously shared summaries don't retroactively change, but new information stops flowing."</p>
+    </div>
+
+    <hr>
+
+    <!-- PATIENT PORTAL — Who Sees What -->
+    <div class="section">
+      <div class="section-header">
+        <h2>PATIENT PORTAL — Who Sees What</h2>
+        <span class="time-badge">30 sec</span>
+      </div>
+
+      <span class="action">Click Who Sees What tab</span>
+
+      <p class="dialogue">"This is the transparency view — Maria can see exactly what each provider sees. Green means fully visible, amber means redacted. For the physio, 'Generalized Anxiety Disorder' becomes 'Mood disorder, managed, stable.' 'Sertraline 50mg' becomes 'Centrally-acting medication.' She can verify that redaction works the way she expects."</p>
+    </div>
+
+    <hr>
+
+    <!-- HOW IT WORKS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>HOW IT WORKS — Quick Highlights</h2>
+        <span class="time-badge">60 sec</span>
+      </div>
+
+      <span class="action">Click How It Works mode</span>
+
+      <p class="dialogue">"Under the hood — three quick things."</p>
+
+      <span class="action">Data Model tab — scroll to three tiers</span>
+
+      <p class="dialogue">"First, the data model. Every piece of clinical data falls into one of three tiers: Always Shared, Conditionally Shared, or Never Shared. The default is always the most restrictive. Patients grant access upward — they never need to act to protect themselves."</p>
+
+      <span class="action">Click Audit Trail tab</span>
+
+      <p class="dialogue">"Second, the audit trail. Every view, consent change, flag, and emergency override is logged with timestamp and identity. This creates unambiguous legal clarity — if a practitioner didn't see something because the patient restricted it, that's documented. No 'should have known' liability."</p>
+
+      <span class="action">Click AI Safety tab — scroll to Phased Adoption</span>
+
+      <p class="dialogue">"Third, phased adoption. Shadow mode first — summaries generated but only visible to a pilot group. Then read-only, then integrated, then full operation. The system earns its place through data, not a mandate."</p>
+    </div>
+
+    <hr>
+
+    <!-- CLOSE -->
+    <div class="section">
+      <div class="section-header">
+        <h2>CLOSE</h2>
+        <span class="time-badge">15 sec</span>
+      </div>
+
+      <span class="action">Click Design Rationale tab — scroll to core principle</span>
+
+      <p class="dialogue">"The design principle behind all of this: the shared summary should make care coordination effortless without making any practitioner's life harder or riskier. Privacy and safety aren't in tension — with the right abstractions, they reinforce each other."</p>
+    </div>
+
+    <hr>
+
+    <!-- RECORDING NOTES -->
+    <div class="notes">
+      <h2>RECORDING NOTES</h2>
+      <ul>
+        <li><strong>Total time:</strong> ~5-6 min. You can cut the "How It Works" section to ~30 sec if you need to tighten.</li>
+        <li><strong>Key demo moment:</strong> Toggling consent in Patient Portal then switching to Provider View to see the change. Practice this transition — it's the money shot.</li>
+        <li><strong>Don't rush</strong> the physio Sertraline → "centrally-acting medication" moment. That's the core insight.</li>
+        <li><strong>Emergency override (optional):</strong> Do it after the role-switching section. Click Break Glass, type "Acute medication reaction assessment," activate, show the banner, then deactivate. Adds ~20 sec.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
