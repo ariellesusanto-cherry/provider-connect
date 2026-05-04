@@ -33,7 +33,7 @@ const STEPS = [
     narrative: "Tom doesn\u2019t recommend codeine. Instead, he coordinates with Astrid\u2019s GP through the system, noting the acute flare-up and requesting an alternative pain management approach. The GP, who has full medication visibility, can make a safe prescribing decision with full context.",
     systemState: "resolved",
     role: "gp",
-    highlight: "Coordination note sent to Dr. Sarah Liu: \u201CAcute flare-up, 8/10 pain. Codeine contraindicated (allergy). Current centrally-acting med noted. Requesting alternative short-term pain management.\u201D",
+    highlight: "Coordination note sent to Dr. Sarah Jones: \u201CAcute flare-up, 8/10 pain. Codeine contraindicated (allergy). Current centrally-acting med noted. Requesting alternative short-term pain management.\u201D",
     highlightType: "green",
   },
   {

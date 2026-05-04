@@ -1,7 +1,7 @@
 // ProviderConnect — Data Layer
 
 export const ROLES = {
-  gp: { label: "Dr. Sarah Liu", title: "General Practitioner", initials: "SL", icon: "\u{1FA7A}", color: "#1E3A5F", bg: "#DCE4F0" },
+  gp: { label: "Dr. Sarah Jones", title: "General Practitioner", initials: "SJ", icon: "\u{1FA7A}", color: "#1E3A5F", bg: "#DCE4F0" },
   physio: { label: "Tom Dunn", title: "Physiotherapist", initials: "TD", icon: "\u{1F9B4}", color: "#A04222", bg: "#F2DDD0" },
   psych: { label: "Dr. Anya Mehta", title: "Psychologist", initials: "AM", icon: "\u{1F9E0}", color: "#7A2E3D", bg: "#EFD8DC" },
   dietitian: { label: "Rachel Lee", title: "Dietitian", initials: "RL", icon: "\u{1F957}", color: "#8B6420", bg: "#EFE4C4" },
@@ -53,7 +53,7 @@ export const ALLERGIES = [
 
 export const VISITS = [
   {
-    id: "v1", date: "2026-02-28", provider: "gp", providerName: "Dr. Sarah Liu",
+    id: "v1", date: "2026-02-28", provider: "gp", providerName: "Dr. Sarah Jones",
     title: "Quarterly metabolic review + back pain follow-up",
     summary: "HbA1c stable at 6.2%. Weight unchanged at 84kg. Astrid reports back pain is 5/10, improved from 7/10 three months ago — attributes improvement to physiotherapy. Discussed continuing current NSAID regimen with periodic liver function monitoring. Referred to dietitian for structured pre-diabetes nutrition plan.",
     sensitivePortion: "Astrid mentioned increased worry about her mother’s recent Alzheimer’s diagnosis. Discussed whether current sertraline dose is adequate — agreed to monitor for 4 weeks before considering adjustment. PHQ-9 score: 8 (mild).",
@@ -360,8 +360,8 @@ export const WHY_ITEMS = [
 
 // Audit log mock data
 export const AUDIT_LOG = [
-  { id: 1, timestamp: "2026-03-07 09:14:22", actor: "Dr. Sarah Liu", actorRole: "gp", action: "viewed", target: "Patient Summary", detail: "Full access view" },
-  { id: 2, timestamp: "2026-03-07 09:15:01", actor: "Dr. Sarah Liu", actorRole: "gp", action: "confirmed", target: "AI Summary", detail: "Marked as accurate" },
+  { id: 1, timestamp: "2026-03-07 09:14:22", actor: "Dr. Sarah Jones", actorRole: "gp", action: "viewed", target: "Patient Summary", detail: "Full access view" },
+  { id: 2, timestamp: "2026-03-07 09:15:01", actor: "Dr. Sarah Jones", actorRole: "gp", action: "confirmed", target: "AI Summary", detail: "Marked as accurate" },
   { id: 3, timestamp: "2026-03-07 10:32:15", actor: "Tom Dunn", actorRole: "physio", action: "viewed", target: "Patient Summary", detail: "Role-filtered view (physio)" },
   { id: 4, timestamp: "2026-03-07 10:33:44", actor: "Tom Dunn", actorRole: "physio", action: "flagged", target: "AI Summary", detail: "Flagged: ‘centrally-acting medication’ wording unclear for exercise safety" },
   { id: 5, timestamp: "2026-03-06 14:02:30", actor: "Astrid Chen", actorRole: "patient", action: "consent_changed", target: "Physio → all_medications", detail: "Revoked: See all medication names" },
@@ -370,6 +370,6 @@ export const AUDIT_LOG = [
   { id: 8, timestamp: "2026-03-05 16:45:12", actor: "Rachel Lee", actorRole: "dietitian", action: "viewed", target: "Patient Summary", detail: "Role-filtered view (dietitian)" },
   { id: 9, timestamp: "2026-03-05 16:46:30", actor: "Rachel Lee", actorRole: "dietitian", action: "confirmed", target: "AI Summary", detail: "Marked as accurate" },
   { id: 10, timestamp: "2026-03-05 09:00:00", actor: "Astrid Chen", actorRole: "patient", action: "consent_changed", target: "GP → mental_health_detail", detail: "Granted: See specific mental health diagnoses" },
-  { id: 11, timestamp: "2026-03-04 13:22:18", actor: "Dr. Sarah Liu", actorRole: "gp", action: "emergency_override", target: "Full Record Access", detail: "Emergency override activated — reason: acute medication reaction assessment" },
+  { id: 11, timestamp: "2026-03-04 13:22:18", actor: "Dr. Sarah Jones", actorRole: "gp", action: "emergency_override", target: "Full Record Access", detail: "Emergency override activated — reason: acute medication reaction assessment" },
   { id: 12, timestamp: "2026-03-04 13:22:19", actor: "System", actorRole: "system", action: "notification", target: "Astrid Chen", detail: "Patient notified of emergency access override" },
 ];
