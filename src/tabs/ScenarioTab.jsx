@@ -5,7 +5,7 @@ const STEPS = [
   {
     id: 1,
     title: "The Situation",
-    narrative: "Maria arrives at physiotherapy with an acute back pain flare-up (8/10). She\u2019s in significant distress. Tom Dunn (physio) considers recommending her GP prescribe codeine for short-term pain relief.",
+    narrative: "Astrid arrives at physiotherapy with an acute back pain flare-up (8/10). She\u2019s in significant distress. Tom Dunn (physio) considers recommending her GP prescribe codeine for short-term pain relief.",
     systemState: "waiting",
     role: "physio",
   },
@@ -21,7 +21,7 @@ const STEPS = [
   {
     id: 3,
     title: "Medication Interaction \u2014 Redacted but Safe",
-    narrative: "Tom also sees that Maria is on a \u201Ccentrally-acting medication that may affect pain perception.\u201D He doesn\u2019t know it\u2019s sertraline (an SSRI) \u2014 but he doesn\u2019t need to. The system tells him what he needs: this medication affects how Maria perceives pain and could cause dizziness, making codeine even more dangerous.",
+    narrative: "Tom also sees that Astrid is on a \u201Ccentrally-acting medication that may affect pain perception.\u201D He doesn\u2019t know it\u2019s sertraline (an SSRI) \u2014 but he doesn\u2019t need to. The system tells him what he needs: this medication affects how Astrid perceives pain and could cause dizziness, making codeine even more dangerous.",
     systemState: "interaction_shown",
     role: "physio",
     highlight: "Centrally-acting medication \u2014 may affect pain perception & appetite. Caution with additional CNS depressants.",
@@ -30,7 +30,7 @@ const STEPS = [
   {
     id: 4,
     title: "Safe Outcome",
-    narrative: "Tom doesn\u2019t recommend codeine. Instead, he coordinates with Maria\u2019s GP through the system, noting the acute flare-up and requesting an alternative pain management approach. The GP, who has full medication visibility, can make a safe prescribing decision with full context.",
+    narrative: "Tom doesn\u2019t recommend codeine. Instead, he coordinates with Astrid\u2019s GP through the system, noting the acute flare-up and requesting an alternative pain management approach. The GP, who has full medication visibility, can make a safe prescribing decision with full context.",
     systemState: "resolved",
     role: "gp",
     highlight: "Coordination note sent to Dr. Sarah Liu: \u201CAcute flare-up, 8/10 pain. Codeine contraindicated (allergy). Current centrally-acting med noted. Requesting alternative short-term pain management.\u201D",
@@ -39,7 +39,7 @@ const STEPS = [
   {
     id: 5,
     title: "The Counterfactual",
-    narrative: "Without this system: Tom calls Maria\u2019s GP, but it\u2019s after hours. Maria mentions she\u2019s taken codeine before \u201Cwith just a bit of nausea.\u201D Tom has no allergy record, no medication list, no way to know about the SSRI interaction. A well-meaning physio, an unreliable patient history, and a dangerous drug interaction \u2014 this is how adverse events happen.",
+    narrative: "Without this system: Tom calls Astrid\u2019s GP, but it\u2019s after hours. Astrid mentions she\u2019s taken codeine before \u201Cwith just a bit of nausea.\u201D Tom has no allergy record, no medication list, no way to know about the SSRI interaction. A well-meaning physio, an unreliable patient history, and a dangerous drug interaction \u2014 this is how adverse events happen.",
     systemState: "counterfactual",
     role: null,
   },
@@ -177,7 +177,7 @@ export default function ScenarioTab({ consent }) {
         <div className="stack stack-md">
           <div className="info-block" style={{ background: "var(--green-bg)", borderColor: "var(--green-border)" }}>
             <div className="info-block-title" style={{ color: "var(--green)" }}>Privacy and safety are not in tension</div>
-            <div className="info-block-desc">The physio never learned Maria has anxiety or takes an SSRI. But the system still prevented the dangerous prescription. Redaction preserved clinical safety.</div>
+            <div className="info-block-desc">The physio never learned Astrid has anxiety or takes an SSRI. But the system still prevented the dangerous prescription. Redaction preserved clinical safety.</div>
           </div>
           <div className="info-block" style={{ background: "var(--green-bg)", borderColor: "var(--green-border)" }}>
             <div className="info-block-title" style={{ color: "var(--green)" }}>Allergies are always shared for a reason</div>

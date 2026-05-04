@@ -1,12 +1,12 @@
 const STAKEHOLDERS = [
   {
     title: "\u{1FA7A} Providers: reduced charting burden",
-    desc: "The AI summary eliminates the most repetitive part of documentation \u2014 reconstructing context from other providers. Instead of spending the first 10 minutes asking Maria to retell her history, the provider opens a pre-populated summary and goes straight to clinical work.",
+    desc: "The AI summary eliminates the most repetitive part of documentation \u2014 reconstructing context from other providers. Instead of spending the first 10 minutes asking Astrid to retell her history, the provider opens a pre-populated summary and goes straight to clinical work.",
     color: "var(--accent)", bg: "var(--accent-light)", border: "rgba(37,99,235,0.15)",
   },
   {
     title: "\u{1F464} Patients: one place to see their full health picture",
-    desc: "Maria has visibility into her own shared record. She can see what each provider knows, control what\u2019s shared, and stop being the human message relay.",
+    desc: "Astrid has visibility into her own shared record. She can see what each provider knows, control what\u2019s shared, and stop being the human message relay.",
     color: "var(--purple)", bg: "var(--purple-bg)", border: "var(--purple-border)",
   },
   {
@@ -45,7 +45,7 @@ export default function RationaleTab() {
           <span className="section-title-icon">&#10067;</span> The Core Problem
         </div>
         <p style={{ fontSize: 14, lineHeight: 1.75, marginBottom: 12 }}>
-          In a multidisciplinary clinic, the patient is the information bridge. Maria tells her physio about medications, reminds her dietitian about back pain limitations, and explains anxiety to her GP. This is inefficient, error-prone, and burdens the sickest patients most.
+          In a multidisciplinary clinic, the patient is the information bridge. Astrid tells her physio about medications, reminds her dietitian about back pain limitations, and explains anxiety to her GP. This is inefficient, error-prone, and burdens the sickest patients most.
         </p>
         <p style={{ fontSize: 14, lineHeight: 1.75 }}>
           But &ldquo;just share all notes&rdquo; creates three problems: sensitive information exposure, liability expansion, and defensive documentation. This system addresses all three.

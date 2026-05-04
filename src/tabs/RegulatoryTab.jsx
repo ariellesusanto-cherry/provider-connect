@@ -9,7 +9,7 @@ const HIPAA_ITEMS = [
   },
   {
     title: "Treatment exception preserved",
-    desc: "HIPAA exempts treatment-purpose disclosures. When Maria grants her GP full mental health access for medication coordination, that mirrors HIPAA\u2019s treatment exception \u2014 the GP needs full context to prescribe safely.",
+    desc: "HIPAA exempts treatment-purpose disclosures. When Astrid grants her GP full mental health access for medication coordination, that mirrors HIPAA\u2019s treatment exception \u2014 the GP needs full context to prescribe safely.",
   },
 ];
 
