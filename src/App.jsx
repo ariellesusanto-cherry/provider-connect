@@ -15,29 +15,29 @@ import PatientConsent from "./tabs/PatientConsent";
 import TransparencyTab from "./tabs/TransparencyTab";
 
 const PROVIDER_TABS = [
-  { id: "summary", label: "Patient Summary" },
-  { id: "compare", label: "Compare Views" },
-  { id: "scenario", label: "Safety Scenario" },
+  { id: "summary", label: "Patient Summary", icon: "\u{1F4CB}" },
+  { id: "compare", label: "Compare Views", icon: "\u{1F500}" },
+  { id: "scenario", label: "Safety Scenario", icon: "\u{1F6E1}" },
 ];
 
 const PATIENT_TABS = [
-  { id: "dashboard", label: "My Health" },
-  { id: "consent", label: "My Privacy Settings" },
-  { id: "transparency", label: "Who Sees What" },
+  { id: "dashboard", label: "My Health", icon: "\u{1F49A}" },
+  { id: "consent", label: "Privacy", icon: "\u{1F510}" },
+  { id: "transparency", label: "Who Sees What", icon: "\u{1F441}" },
 ];
 
 const SYSTEM_TABS = [
-  { id: "data", label: "Data Model" },
-  { id: "audit", label: "Audit Trail" },
-  { id: "reg", label: "Regulatory" },
-  { id: "quality", label: "Quality Metrics" },
-  { id: "safety", label: "AI Safety" },
-  { id: "rationale", label: "Design Rationale" },
+  { id: "data", label: "Data Model", icon: "\u{1F5C2}" },
+  { id: "audit", label: "Audit Trail", icon: "\u{1F4DC}" },
+  { id: "reg", label: "Regulatory", icon: "⚖" },
+  { id: "quality", label: "Quality", icon: "\u{1F4CA}" },
+  { id: "safety", label: "AI Safety", icon: "\u{1F9E0}" },
+  { id: "rationale", label: "Rationale", icon: "\u{1F4A1}" },
 ];
 
 const MODES = [
-  { id: "provider", label: "Provider View", icon: "\u{1FA7A}" },
-  { id: "patient", label: "Patient Portal", icon: "\u{1F464}" },
+  { id: "provider", label: "Provider", icon: "\u{1FA7A}" },
+  { id: "patient", label: "Patient", icon: "\u{1F464}" },
 ];
 
 export default function App() {
@@ -109,6 +109,7 @@ export default function App() {
               className={`header-settings-btn${mode === "system" ? " active" : ""}`}
               onClick={() => switchMode(mode === "system" ? "provider" : "system")}
               title="System Settings"
+              aria-label="System settings"
             >
               &#9881;&#65039;
             </button>
@@ -137,7 +138,7 @@ export default function App() {
         {/* Role Selector (provider mode only) */}
         {mode === "provider" && (
           <div className="role-section">
-            <div className="role-section-label">Viewing as:</div>
+            <div className="role-section-label">Viewing as</div>
             <div className="role-grid">
               {Object.entries(ROLES).map(([key, r]) => (
                 <button
@@ -146,7 +147,7 @@ export default function App() {
                   onClick={() => setRole(key)}
                   style={
                     role === key
-                      ? { borderColor: r.color, background: r.bg }
+                      ? { borderColor: r.color, background: r.bg, color: r.color }
                       : undefined
                   }
                 >
@@ -174,6 +175,7 @@ export default function App() {
               className={`tab-btn${tab === t.id ? " active" : ""}`}
               onClick={() => setTab(t.id)}
             >
+              {t.icon && <span className="tab-btn-icon" aria-hidden="true">{t.icon}</span>}
               {t.label}
             </button>
           ))}
