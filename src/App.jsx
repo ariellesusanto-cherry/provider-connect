@@ -22,7 +22,7 @@ const PROVIDER_TABS = [
 
 const PATIENT_TABS = [
   { id: "dashboard", label: "My Health" },
-  { id: "consent", label: "My Privacy Settings" },
+  { id: "consent", label: "Privacy" },
   { id: "transparency", label: "Who Sees What" },
 ];
 
@@ -30,15 +30,22 @@ const SYSTEM_TABS = [
   { id: "data", label: "Data Model" },
   { id: "audit", label: "Audit Trail" },
   { id: "reg", label: "Regulatory" },
-  { id: "quality", label: "Quality Metrics" },
+  { id: "quality", label: "Quality" },
   { id: "safety", label: "AI Safety" },
-  { id: "rationale", label: "Design Rationale" },
+  { id: "rationale", label: "Rationale" },
 ];
 
 const MODES = [
-  { id: "provider", label: "Provider View", icon: "\u{1FA7A}" },
-  { id: "patient", label: "Patient Portal", icon: "\u{1F464}" },
+  { id: "provider", label: "Provider" },
+  { id: "patient", label: "Patient" },
+  { id: "system", label: "System" },
 ];
+
+const MODE_DESCRIPTIONS = {
+  provider: "Clinician workspace · role-filtered patient summary",
+  patient: "Patient portal · review and control sharing",
+  system: "Operations · model, audit, governance",
+};
 
 export default function App() {
   const [mode, setMode] = useState("provider");
@@ -90,97 +97,104 @@ export default function App() {
     SYSTEM_TABS;
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div className="app">
       {/* Header */}
       <header className="app-header">
         <div className="header-inner">
           <div className="header-brand">
-            <div className="header-logo">P</div>
-            <div>
-              <div className="header-title">ProviderConnect</div>
-              <div className="header-subtitle">Shared Patient Summary</div>
+            <div className="brand-mark" aria-hidden="true">P</div>
+            <div className="brand-words">
+              <div className="brand-name">ProviderConnect</div>
+              <div className="brand-eyebrow">Shared Patient Summary &middot; Vol. I</div>
             </div>
           </div>
           <div className="header-right">
-            <div className="header-patient">
-              {PATIENT.name}, {PATIENT.age} &middot; DOB: {PATIENT.dob}
+            <div className="patient-pill">
+              <span className="patient-pill-label">Patient</span>
+              <span className="patient-pill-divider" aria-hidden="true">/</span>
+              <span className="patient-pill-name">{PATIENT.name}</span>
+              <span className="patient-pill-meta">{PATIENT.age} · {PATIENT.dob}</span>
             </div>
-            <button
-              className={`header-settings-btn${mode === "system" ? " active" : ""}`}
-              onClick={() => switchMode(mode === "system" ? "provider" : "system")}
-              title="System Settings"
-            >
-              &#9881;&#65039;
-            </button>
           </div>
         </div>
       </header>
 
       {/* Content */}
       <div className="app-layout">
-        {/* Mode Switcher */}
+        {/* Mode segmented control */}
         <div className="mode-bar">
-          <div className="mode-switcher">
+          <div className="mode-switcher" role="tablist" aria-label="View mode">
             {MODES.map((m) => (
               <button
                 key={m.id}
-                className={`mode-btn${mode === m.id ? " active" : ""}${m.id === "patient" ? " mode-btn-patient" : ""}`}
+                role="tab"
+                aria-selected={mode === m.id}
+                className={`mode-btn${mode === m.id ? " active" : ""}`}
                 onClick={() => switchMode(m.id)}
               >
-                <span className="mode-btn-icon">{m.icon}</span>
                 {m.label}
               </button>
             ))}
           </div>
+          <div className="mode-caption">{MODE_DESCRIPTIONS[mode]}</div>
         </div>
 
-        {/* Role Selector (provider mode only) */}
+        {/* Role row (provider mode only) */}
         {mode === "provider" && (
-          <div className="role-section">
-            <div className="role-section-label">Viewing as:</div>
-            <div className="role-grid">
+          <div className="role-row">
+            <div className="role-row-label">Viewing as</div>
+            <div className="role-chips">
               {Object.entries(ROLES).map(([key, r]) => (
                 <button
                   key={key}
-                  className={`role-btn${role === key ? " active" : ""}`}
+                  className={`role-chip${role === key ? " active" : ""}`}
                   onClick={() => setRole(key)}
                   style={
                     role === key
-                      ? { borderColor: r.color, background: r.bg }
+                      ? { borderColor: r.color, background: r.bg, color: r.color }
                       : undefined
                   }
                 >
-                  <span className="role-icon">{r.icon}</span>
-                  <div className="role-info">
-                    <div
-                      className="role-name"
-                      style={role === key ? { color: r.color } : undefined}
-                    >
-                      {r.label}
-                    </div>
-                    <div className="role-title">{r.title}</div>
-                  </div>
+                  <span
+                    className="role-monogram"
+                    style={{
+                      background: role === key ? r.color : "transparent",
+                      color: role === key ? "#FBF6E9" : r.color,
+                      borderColor: role === key ? r.color : r.color,
+                    }}
+                  >
+                    {r.initials}
+                  </span>
+                  <span className="role-chip-text">
+                    <span className="role-chip-name">{r.label}</span>
+                    <span className="role-chip-title">{r.title}</span>
+                  </span>
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Sub-Tab Navigation */}
-        <div className="tab-nav">
-          {activeTabs.map((t) => (
-            <button
-              key={t.id}
-              className={`tab-btn${tab === t.id ? " active" : ""}`}
-              onClick={() => setTab(t.id)}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
+        {/* Tab navigation */}
+        <nav className="tab-nav" aria-label={`${mode} sections`}>
+          <ol className="tab-list">
+            {activeTabs.map((t, i) => (
+              <li key={t.id} className="tab-item">
+                <button
+                  className={`tab-btn${tab === t.id ? " active" : ""}`}
+                  onClick={() => setTab(t.id)}
+                  aria-current={tab === t.id ? "page" : undefined}
+                >
+                  <span className="tab-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="tab-label">{t.label}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </nav>
 
         {/* Tab Content */}
-        <div className="tab-content" key={tab === "summary" ? tab + role : tab}>
+        <main className="tab-content" key={tab === "summary" ? tab + role : tab}>
           {/* Provider tabs */}
           {tab === "summary" && <SummaryTab role={role} consent={consent} onEmergencyOverride={appendAudit} />}
           {tab === "compare" && <CompareTab consent={consent} />}
@@ -198,7 +212,15 @@ export default function App() {
           {tab === "quality" && <QualityTab />}
           {tab === "safety" && <SafetyTab />}
           {tab === "rationale" && <RationaleTab />}
-        </div>
+        </main>
+
+        <footer className="app-footer">
+          <div className="footer-rule" aria-hidden="true"></div>
+          <div className="footer-line">
+            <span className="footer-mark">P</span>
+            <span>ProviderConnect — A working sketch of patient-controlled clinical data sharing.</span>
+          </div>
+        </footer>
       </div>
     </div>
   );
