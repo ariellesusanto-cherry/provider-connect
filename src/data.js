@@ -1,10 +1,10 @@
 // ProviderConnect — Data Layer
 
 export const ROLES = {
-  gp: { label: "Dr. Sarah Liu", title: "General Practitioner", icon: "\u{1FA7A}", color: "#2563EB", bg: "#EFF6FF" },
-  physio: { label: "Tom Dunn", title: "Physiotherapist", icon: "\u{1F9B4}", color: "#0D9488", bg: "#F0FDFA" },
-  psych: { label: "Dr. Anya Mehta", title: "Psychologist", icon: "\u{1F9E0}", color: "#7C3AED", bg: "#F5F3FF" },
-  dietitian: { label: "Rachel Kwon", title: "Dietitian", icon: "\u{1F957}", color: "#16A34A", bg: "#F0FDF4" },
+  gp: { label: "Dr. Sarah Liu", title: "General Practitioner", initials: "SL", icon: "\u{1FA7A}", color: "#1B3B2A", bg: "#E4ECDF" },
+  physio: { label: "Tom Dunn", title: "Physiotherapist", initials: "TD", icon: "\u{1F9B4}", color: "#A04222", bg: "#F2DDD0" },
+  psych: { label: "Dr. Anya Mehta", title: "Psychologist", initials: "AM", icon: "\u{1F9E0}", color: "#7A2E3D", bg: "#EFD8DC" },
+  dietitian: { label: "Rachel Kwon", title: "Dietitian", initials: "RK", icon: "\u{1F957}", color: "#8B6420", bg: "#EFE4C4" },
 };
 
 export const PATIENT = {
