@@ -8,19 +8,19 @@
 
 /* ─── Tokens ─────────────────────────────────────────────────────────────── */
 :root {
-  /* Paper system */
-  --paper: #F2EBDB;
-  --paper-2: #EBE3D0;
-  --card: #FBF6E9;
-  --card-2: #F7F1E1;
-  --card-soft: #F4ECD9;
-  --hover: #EFE6CD;
+  /* Paper system — lighter cream */
+  --paper: #FAF6EC;
+  --paper-2: #F4EFE0;
+  --card: #FFFDF6;
+  --card-2: #FAF5E7;
+  --card-soft: #F7F1E0;
+  --hover: #F1EAD2;
 
   /* Rules / borders */
-  --rule: #D6CCB3;
-  --rule-2: #C7BCA0;
-  --rule-strong: #A89B7B;
-  --rule-soft: #E2D9C0;
+  --rule: #E5DDC5;
+  --rule-2: #D4C9A8;
+  --rule-strong: #B8AB85;
+  --rule-soft: #EDE6D0;
 
   /* Ink (text) */
   --ink: #131A14;
@@ -77,7 +77,7 @@
   --teal-border: #B7CDA9;
 
   /* Effects */
-  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 
   --shadow-xs: 0 1px 0 rgba(36, 28, 12, 0.04);
   --shadow-sm: 0 1px 1px rgba(36, 28, 12, 0.05), 0 2px 4px rgba(36, 28, 12, 0.04);
@@ -162,7 +162,7 @@ input:focus-visible {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(242, 235, 219, 0.85);
+  background: rgba(250, 246, 236, 0.88);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
   border-bottom: 1px solid var(--rule);
