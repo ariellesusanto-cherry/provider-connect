@@ -102,7 +102,14 @@ export default function App() {
       <header className="app-header">
         <div className="header-inner">
           <div className="header-brand">
-            <div className="brand-mark" aria-hidden="true">P</div>
+            <a className="brand-mark" href="/" aria-label="ProviderConnect home">
+              <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                <rect width="64" height="64" rx="11" fill="var(--brand)"/>
+                <rect x="4.5" y="4.5" width="55" height="55" rx="7" fill="none" stroke="var(--paper)" strokeOpacity="0.18" strokeWidth="0.9"/>
+                <text x="32" y="44" textAnchor="middle" fontFamily="'Fraunces','Times New Roman',Georgia,serif" fontStyle="italic" fontWeight="500" fontSize="40" fill="var(--paper)" letterSpacing="-1">P</text>
+                <line x1="20" y1="51" x2="44" y2="51" stroke="var(--paper)" strokeOpacity="0.34" strokeWidth="0.7"/>
+              </svg>
+            </a>
             <div className="brand-words">
               <div className="brand-name">ProviderConnect</div>
               <div className="brand-eyebrow">Shared Patient Summary &middot; Vol. I</div>
@@ -216,9 +223,21 @@ export default function App() {
 
         <footer className="app-footer">
           <div className="footer-rule" aria-hidden="true"></div>
-          <div className="footer-line">
-            <span className="footer-mark">P</span>
-            <span>ProviderConnect — A working sketch of patient-controlled clinical data sharing.</span>
+          <div className="footer-grid">
+            <div className="footer-brand">
+              <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
+                <rect width="64" height="64" rx="11" fill="var(--brand)"/>
+                <text x="32" y="44" textAnchor="middle" fontFamily="'Fraunces',Georgia,serif" fontStyle="italic" fontWeight="500" fontSize="40" fill="var(--paper)" letterSpacing="-1">P</text>
+              </svg>
+              <span className="footer-tagline">A working sketch of patient-controlled, role-filtered clinical data sharing.</span>
+            </div>
+            <div className="footer-meta">
+              <span className="footer-meta-item">Vol. I</span>
+              <span className="footer-meta-divider" aria-hidden="true">·</span>
+              <span className="footer-meta-item">Demo</span>
+              <span className="footer-meta-divider" aria-hidden="true">·</span>
+              <span className="footer-meta-item">{new Date().getFullYear()}</span>
+            </div>
           </div>
         </footer>
       </div>
