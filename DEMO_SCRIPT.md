@@ -1,4 +1,4 @@
-# Capsule — Live Demo Script
+# ProviderConnect — Live Demo Script
 
 **Total time:** ~5-6 minutes
 
@@ -6,7 +6,7 @@
 
 ## INTRO (15 sec)
 
-"This is Capsule — a shared patient summary for multidisciplinary clinics. The core challenge: how do you coordinate care across providers without exposing sensitive patient data or creating liability? I'll walk through the system from three perspectives: the provider, the patient, and the architecture underneath."
+"This is ProviderConnect — a shared patient summary for multidisciplinary clinics. The core challenge: how do you coordinate care across providers without exposing sensitive patient data or creating liability? I'll walk through the system from three perspectives: the provider, the patient, and the architecture underneath."
 
 ---
 
